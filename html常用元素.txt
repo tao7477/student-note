@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+	<!--  <video src="https://zoedylan.github.io/lib/image/files/v1.ogg" controls autoplay loop></video>
+	controls 控制器  autoplay 自动播放  loop  循环播放
+	
+	<video controls>
+		<source src="https://zoedylan.github.io/lib/image/files/v1.ogg"></source>
+		<source src="https://zoedylan.github.io/lib/image/files/v1.mp3"></source>
+	</video>
+	
+	<audio controls>
+    <source src="https://zoedylan.github.io/lib/image/files/a1.ogg"/>
+    <source src="https://zoedylan.github.io/lib/image/files/a2.mp3"/>
+</audio>  -->
+<!--  <p>6666</p><hr>      <hr>可用于分隔内容。  -->
+
+<!--  <fieldset style="width:300px;">
+	<legend>用户登录</legend>
+	账号：<input type="text"><br>
+	密码：<input type="password">
+</fieldset>
+
+<select>
+  <optgroup label="Swedish Cars">                optgroup  定义选项组 合并选项组
+    <option value="volvo">Volvo</option>		 option    定义下拉列表中的选项
+    <option value="saab">Saab</option>
+  </optgroup>
+  <optgroup label="German Cars">
+    <option value="mercedes">Mercedes</option>
+    <option value="audi">Audi</option>
+  </optgroup>
+</select>
+
+<iframe src="认识html.html" frameborder="0" name="iframe_a"></iframe>     框架  src=“URL”  将其他页面的内容放到当前页面   frameborder  设置边框为“”
+<p><a href="http://www.baidu.com" target="iframe_a">www.baidu.com</a></p>  -->
+
+<!-- 相对路径  同一目录下可以直接写文件名称  如 <a href="认识html.html"></a>    如果在上一级目录下则在前面加../   如<a href="../认识html.html"></a>   上上级则是../../  依次内推  -->
+
+<em>强调文本</em>
+<i>斜体文本</i>
+<br>
+&lt; 等同于 <
+&gt; 等同于 >
+&#169; 等同于 ©
+&nbsp;  空格
+&laquo  向左的箭头    &raquo  向右的箭头
+
+<!-- JS实现点击网页中任意位置弹出一新页面<br>
+<script>
+var i = 0;
+document.onclick = function(){
+	if(i == 0){
+	i++;
+	open("url")
+	}
+}
+</script>
+-->
+
+<!--  base标签规定页面上所有链接的默认 URL 和默认目标 ，请把 <base> 标签排在 <head> 元素中第一个元素的位置，这样 head 区域中其他元素就可以使用 <base> 元素中的信息了。
+<base href="http://www.runoob.com//images/" target="_blank">这一部分放在<head>里,可以用来设置链接的默认文件夹
+
+<p><img src="logo.png" > - 注意这里我们设置了图片的相对地址。能正常显示是因为我们在 head 部分设置了 base 标签，该标签指定了页面上所有链接的默认 URL，所以该图片的访问地址为 "http://www.runoob.com/images/logo.png"</p>
+   相当于<p><img src="http://www.runoob.com//images/login.png"/></p>
+<p><a href="http://www.runoob.com/">runoob.com</a> - 注意这个链接会在新窗口打开，即便它没有 target="_blank" 属性。因为在 base 标签里我们已经设置了 target 属性的值为 "_blank"。</p>
+    相当于<p><a href="http://www.runoob.com" target="_blank"></a></p>
+-->
+
+
+</body>
+</html> 

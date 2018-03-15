@@ -1,0 +1,125 @@
+原生javascript
+function Ajax(){ 
+	var xmlHttpReq = null;	//声明一个空对象用来装入XMLHttpRequest
+	if (window.ActiveXObject){//IE5 IE6是以ActiveXObject的方式引入XMLHttpRequest的
+		xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+	} 
+	else if (window.XMLHttpRequest){//除IE5 IE6 以外的浏览器XMLHttpRequest是window的子对象
+		xmlHttpReq = new XMLHttpRequest();//实例化一个XMLHttpRequest
+	}
+	if(xmlHttpReq != null){	//如果对象实例化成功 
+		xmlHttpReq.open("GET","test.php",true);	//调用open()方法并采用异步方式
+		xmlHttpReq.onreadystatechange=RequestCallBack; //设置回调函数
+		xmlHttpReq.send(null);	//因为使用get方式提交，所以可以使用null参调用
+	}
+	function RequestCallBack(){//一旦readyState值改变，将会调用这个函数
+		if(xmlHttpReq.readyState == 4){
+				if(xmlHttpReq.status == 200){
+					//将xmlHttpReq.responseText的值赋给ID为 resText 的元素
+					document.getElementById("resText").innerHTML = xmlHttpReq.responseText;
+				}
+		}
+	}
+}
+
+
+jQuery
+load方法
+    $(function(){
+	    $('#send').click(function(){
+		    $('#resText').load('test.html');    //在id为resText的元素中加载test.html的内容
+		});
+	});
+	$('#resText').load('test.html .para');   //仅加载class为para部分的内容
+	
+	//无参数传递,则是GET方式
+		$('#resText').load('test.php', function(){
+		    //回调函数的内容
+		});
+	//有参数传递,则是POST方式
+		$('#resText').load('test.php',{name: 'rain', age: '22'}, function(){
+		    //...
+		});
+		
+	$('#resText').load('test.html', function(responseText,textStatus, XMLHttpRequest){
+		    //responseText   :      请求返回的内容
+			//textStatus     :      请求状态: success,error,notmodified,timeout 4种
+			//XMLHttpRequest :      XMLHttpRequest对象
+		});	
+	在load()方法中,无论请求成功还是失败,回调函数都会触发
+	
+1.$.get()方法
+        $.get(url, [data], [callback], type)
+		url            :      String      请求的HTML页的URL地址
+		data(可选的)   :      Object      发送至服务器的key/value数据会作为QueryString附加到请求URL中
+		callback(可选) :      Function    载入成功时回调函数(返回状态成功时才调用)自动将请求结果和状态传递给该方法
+		type(可选)     :      String      服务器段返回内容的格式,包括xml,html,script,json,text和_default
+		
+	$(function(){
+	    $('#send').click(function(){
+		    $.get('get1.php', { username: $('#username').val(),   //发送id为username的元素的内容
+			                    content: $('#content').val()
+							}, function(data, textStatus){       //data:返回的内容 textStatus:请求状态
+							    $('#resText').html(data);   //将返回的内容添加到页面
+							});
+		});
+	});
+
+1.$.getScript()方法    (在需要时触发某种事件后动态的加载JavaScript文件,而不必一开始就加载全部的文件)	
+    使用$.getScript()方法获取文件并可以直接加载而无需做多余的操作,取得后就会自动执行
+	    $(function(){
+		    $('#send').click(function(){
+			    $.getScript('test.js');    //加载test.js文件
+			});
+		});
+		
+	$.getScript()方法也有回调函数,js文件加载成功后就会调用函数
+	    $(function(){
+		    $.getScript('jquery.color.js', function(){    //加载jquery.color.js成功后调用
+			    $('#go').click(function(){
+				    $('.block').animate({ backgroundColor: 'pink'}, 1000)
+					           .animate({ backgroundColor: 'blue'}, 1000);
+				});
+			});
+		});
+		
+2.getJSON()方法 (用于加载JSON文件,与getScript的用法相同)
+    $(function(){
+	    $('#send').click(function(){
+		    $.getJSON('test.json');    //取得test.json的数据
+		});
+	});
+	
+    取得的json数据会作为参数data传入到$.getJSON()的回调函数中,可以通过for迭代data变量来取得
+		所有的数据,也可以通过jQuery的$.each()方法来遍历json中的对象和数组
+	    $(function(){
+		    $('#send').click(function(){
+			     $.getJSON('test.json', function(data){    //返回的数据
+				      $('#resText').empty();      //清空id为'resText'的元素的内容
+                      var html = '';
+                      $.each(data, function(commentIndex, comment){    //回调函数参数:索引和内容
+					      html += '<div class="comment"><h6>'
+						          + comment['username'] + '</h6><p class="para">'
+								  + comment['content'] + '</p></div>';
+					  });
+                      $('resText').html(html);					  
+				 });
+			});
+		});
+		
+如果用户点击交互时需要加载的内容比较大或者从远端获取,我们通常需要使用在两种方法,在用户点击后
+提醒用户开始加载的信息表示操作有效,完成后隐藏加载信息
+    <div id="loading">加载中</div>       //显示加载中信息的元素
+	
+	$('#loading').ajaxStart(function(){    //当发现ajax调用开始
+	    $(this).show();
+	});
+	$('#loading').ajaxStop(function(){
+	    $(this).hide();
+	})   //也可以使用链式写法
+	     //$('#loading').ajaxStart(function(){
+		     $(this).show();
+		 }).ajaxStop(function(){
+		     $(this).hide();
+		 })
+		 

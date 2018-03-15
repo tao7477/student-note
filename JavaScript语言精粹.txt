@@ -1,0 +1,390 @@
+如果一个数字字面量有指数部分,那么这个字面量的值等于e之前的数字与10的e之后数字的次方相乘。所有100和1e2相等。
+	1e2 = 1 * 10^2 = 100
+	
+NaN是一个数值,它表示一个不能产生正常结果的运算结果。NaN不等于任何值,包括它自己。可以使用isNaN(number)检测NaN
+
+转义字符\用来把那些正常情况下不被允许的字符插入到字符中,比如反斜线、引号和控制字符。\u约定用来指定数字字符编码
+	"A" === "\u0041"
+	
+字符串有一个length属性,字符串是不可变的,一旦字符串被创建就永远无法改变它。修改字符串会导致字符串销毁并重新创建
+	一个新的字符串。但可以通过 + 运算符连接其他字符串来创建一个新字符串。两个包含完全相同的字符并且字符顺序相同
+	的字符串被认为是相同的字符串。
+		'c' + 'a' +'t' === 'cat'	//true
+
+switch、while、for和do语句允许有一个可选的前置标签(lable),它配合break语句来使用。
+		
+代码块是包在一对花括号中的一组语句。JavaScript中的代码块不会创建新的作用域,因此变量应该被定义在函数的头部,而不是
+	代码块中
+
+在if语句中作为条件时,false、null、undefined、空字符串' '、数字0、数字NaN都被看做是假
+					其他所有的值都被当做真,包括true、字符串'false',以及所有对象
+
+for语句有两种形式。
+常见的形式由三个可选从句控制:初始化从句(initialization)、条件语句(condition)和增量从句(increment)。
+
+另一种形式(被称为for in语句)会枚举一个对象的所有属性名(或键名)。在每次循环中,object的下一个属性名字符串被赋值
+给variable			for(variable in object) 
+
+通常使用object.hasOwnProperty(variable)来确定这个属性名是该对象的成员,还是来自原型链
+		for (myvar in obj){
+			if (obj.hasOwnProperty(myvar)){
+				...
+			}
+		}
+		
+try语句执行一个代码块,并捕捉该代码块抛出的任何异常。catch从句定义一个新的变量variable来接收抛出的异常对象
+	try {...} catch (variable) {...}
+	
+return语句会导致从函数中提前返回。它也可以指定要被返回的值。如果没有指定返回表达式,那么返回值是undefined
+	JavaScript不允许在return关键字和表达式之间换行
+	
+break语句会使程序退出一个循环语句或switch语句。它可以指定一个可选标签,那退出的就是带该标签的语句
+
+三元表达式 ? 有3个运算数。如果第1个运算数值为真,产生第2个运算数的值。但如果第1个运算数值为假,则产生第3个运算数的值
+		expression ? expression : expression
+
+typeof运算符产生的值有'number'、'string'、'boolean'、'undefined'、'function'和'object'。如果运算数是一个
+数组或null,那么结果是'object',这其实是不对的
+
+如果第1个运算数的值为假,那么运算符&&产生它的第1个运算数的值,否则产生第2个运算数的值
+
+如果第1个运算数的值为真,那么运算符 || 产生的第1个运算数的值,否则产生第2个运算数的值
+
+对象字面量是一种可以方便地按照规格创建对象的表示法。属性名可以是标识符或字符串。这些名字被当做字面量名而不是
+变量名来对待。属性的值就是表达式。
+
+函数字面量定义了函数值。它有一个可选的名字,用于递归地调用自己。它可以指定一个参数列表,这些参数就像变量一样
+在调用时由传递的实际参数(argument)初始化。函数的主体包括变量定义和语句。
+
+
+JavaScript的简单数据类型包括数字、字符串、布尔值(true和false)、null值和undefined值。其他所有值都是对象
+
+在JavaScript中,数组是对象,函数是对象,正则表达式是对象,当然,对象自然也是对象
+
+一个对象字面量就是包围在一对花括号中的零或多个"名值"对。对象字面量可以出现在任何允许表达式出现的地方
+
+属性名可以是包含空字符在内的任何字符串。在对象字面量中,如果属性名是一个合法的JavaScript标识符且不是保留字,
+则并不强制要求用引号括住属性名。所以用引号括住"first-name"是必需的,但是否括住first_name则是可选的。
+	逗号用来分隔多个"名值"对
+	
+属性的值可以从包括另一个对象字面量在内的任意表达式中获得。对象是可嵌套的:
+	var flight = {
+		airline: "Oceanic",
+		departure: {
+			IATA: "SYD",
+			time: "2004-09-22 14:55",
+			city: "Sydney"
+		}
+	}
+	
+可以使用在[]后缀中括住一个字符串表达式的方式来检索对象里的值。如果字符串表达式是一个字符串字面量,而且它是
+一个合法的JavaScript标识符且不是保留字,那么也可以用 . 表示法代替
+
+优先考虑使用 . 表示法,因为它更紧凑且可读性更好，当检索一个并不存在的属性的值,返回undefined
+
+||运算符可以用来填充默认值:	var moddle = stooge["middle-name"] || "(none)";var status = flight.status || "(unknown)"
+
+JavaScript的标识符中包含连接符(-)是不合法的,但允许下画线(_)
+
+对象通过引用来传递,它们永远不会被复制
+	
+每个对象都连接到一个原型对象,并且它可以从中继承属性。所有通过对象字面量创建的对象都连接到Object.prototype,
+它是JavaScript中的标配对象
+
+原型关系是一种动态关系,如果我们添加一个新的属性到原型中,该属性会立即对所有基于该原型创建的对象可见
+
+可以使用hasOwnProperty()方法,如果对象拥有独有的属性,它将返回true。hasOwnProperty方法不会检查原型链
+	filgth.hasOwnProperty('number')			//true
+
+	
+delete运算符可以用来删除对象的属性。如果该对象包含该属性,那么该属性就会被移除,它不会触及原型链中的任何对象
+	delete another_stooge.nickname
+
+删除对象的属性可能会让来自原型链中的同名属性透现出来
+
+最小化使用全局变量的方法之一是让你的应用只创建一个唯一的全局变量,将所有的资源都纳入一个名称空间之下
+
+
+JavaScript中的函数就是对象,函数对象连接到Function.prototype(该原型对象本身连接到Object.prototype)
+
+每个函数对象在创建时也会随配有一个prototype属性。它的值是一个拥有constructor属性且值即为该函数的对象
+
+函数可以保存在变量、对象和数组中。函数可以被当做参数传递给其他函数,函数也可以再返回函数,函数作为对象也可以有方法
+
+函数字面量可以出现在任何允许表达式出现的地方
+
+一个内部函数除了可以访问自己的参数和变量,同时它也能自由访问把它嵌套在其中的父函数的参数和变量
+
+通过函数字面量创建的函数对象包含一个连到外部上下文的连接。这被称为闭包
+
+调用一个函数会暂停当前函数的执行,传递控制权和参数给新函数
+
+除了声明时定义的形式参数,每个函数还接收两个附加的参数:this和arguments
+
+当传入函数的实际参数(arguments)的个数与形式参数(parameters)的个数不匹配时,不会导致运行错误。
+如果传入函数的实际参数(arguments)的个数超过了,超出的参数会被忽略
+如果传入的参数值过少,缺失的值会被替换为undefined。对参数值不会进行类型检查:任何值都可以被传递给任何参数
+
+方法调用模式也就是函数作为一个对象的方法调用时,this会被绑定到该对象,方法可以使用this访问自己所属的对象
+
+通过this可取的它们所属对象的上下文的方法称为公共方法(public method)
+
+当一个函数并非一个对象的属性调用时,即作为一个函数来调用时,它的this会被绑定到全局对象,函数的内部函数this会绑定错误
+
+但我们可以将外部函数的this赋值给一个变量that,那么内部函数就可以通过这个变量访问到this
+		myObject.double = function(){		//给myObject增加一个double方法
+			var that = this;		//解决方法,this赋值给that后,that指向对象myObject
+			
+			var helper = function(){
+				that.value = add(that.value, that.value);
+			};
+			
+			helper();		//以函数的形式调用helper,调用时this绑定到全局变量,但that绑定到对象myObject
+		}
+		
+如果在一个函数前面带上new来调用,那么背地里将会创建一个连接到该函数的prototype成员的新对象,同时this会被绑定到那个新对象上
+
+arguments数组包含所有被传入被调用函数的参数列表。arguments并不是一个真的数组,它只拥有length属性,没有任何数组的方法
+
+return语句会导致从函数中提前返回,且不再执行余下的语句。它也可以指定要被返回的值。如果没有指定返回undefined
+
+如果函数调用时在前面加上了new前缀,且返回值不是一个对象,则返回this(该新对象)
+
+我通过给Function.prototype增加一个method方法,我们下次给对象增加方法时就不必要键入prototype
+	Function.prototype.method = function(name, func) {
+		this.prototype[name] = func;		//给调用实例增加新方法
+		return this;	//返回新实例
+	}
+	
+	
+递归函数可以非常高效地操作树形结构,比如浏览器端的文档对象模型(DOM)。每次递归调用时处理指定的树的一小段
+	var walk_the_DOM = function walk(node, func) {
+		func(node);				//调用函数处理节点
+		node = node.firstChild;	//查找节点的第一个子节点并赋值给node
+		while (node) {			//如果节点的子节点node存在
+			walk (node, func);	//调用walk函数来处理子节点
+			node = node.nextSibiling;	//当某个节点没有子节点时就会查找下一个与它同级的节点
+		}
+	};
+	该函数的原理是从节点一路向下查找节点的子节点并处理,当查找到最小的子节点时,就会查找上一层节点的同级节点并重复前面的操作
+	
+在一个代码块中定义的所有变量在代码块的外部都是不可见的。定义在代码块中的变量在代码块执行结束后会被释放掉
+
+我们可以使用函数和闭包来构造模块。模块是一个提供接口却隐藏状态与实现的函数或对象
+
+当string.replace()方法的第二个参数不是字符串而是函数时,则每一个匹配都要调用该函数,它返回的字符串
+将作为替换文本使用,该函数的第一个参数是匹配模式的字符串。接下来的参数是与模式中的子表达式匹配的字符串
+
+模块模式的一般形式是:一个定义了私有变量和函数的函数;利用闭包创建可以访问私有变量和函数的特权函数;最后返回
+这个特权函数,或者把它们保存到一个可访问的地方
+
+级联:让某些修改或设置的方法返回this而不是undefined,就可以启用级联,可以单独一条语句依次调用多个方法
+	getElement('myBoxDiv').move(350, 150).width(100).heigth(100).color(red)			//前提是这些方法返回this
+
+"柯里化"允许我们把函数与传递给函数的参数相结合,产生出一个新的函数,是把单个多参数函数转化为一系列单参数函数
+并调用的方法:	var add1 = add.curry(1);		add1(6);	//curry返回一个新函数并赋给add1
+
+我们知道函数中的arguments看起来和数组一样有length并可以通过下标访问,但arguments并不是一个数组,在需要对它
+调用数组上的一些方法时,我们可以使用Array.prototype.slice.apply(arguments)来使它变为一个数组
+
+函数可以将先前操作的结果记录在某个对象中,这样就可以避免无谓的重复运算
+
+
+
+编写一个函数来帮助构造带记忆功能的函数。memoizer函数取得一个初始的memo数组和formula函数。它返回一个管理
+memo存储和在需要时调用formula函数的recur函数。我们把这个recur函数和它的参数传给formula函数
+		var memoizer = function (memo, formula) {
+			var recur = function (n) {		//recur函数处理逻辑并调用formula函数
+				var result = memo[n];	//查看memo数组中的数据
+				if (typeof result !== 'number') {	//如果memo数组中没有这一项
+					result = formula (recur, n);	//调用formula函数,formula函数决定怎么处理recur函数的结果
+					memo[n] = result;				//将这一项的结果存储进memo中
+				}
+				return result;						//调用recur函数时会输出这一项的结果
+			};
+			return recur;							//返回函数recur
+		};
+	现在,我们可以使用memoizer函数来定义fibonacci函数,提供初始的memo数组和formula函数:
+		var fibonacci = memoizer([0,1], function(recur, n){	//fibonacci函数取得的是返回的recur函数
+			return recur (n -1) + recur (n -2);
+		});
+	
+	
+每一个新创建的函数对象都会被赋予一个prototype属性,它的值是一个包含constructor属性且属性值为该新函数的对象	
+	这个prototype对象是存放继承特征的地方
+
+所有的构造函数都约定命名成首字母大写的形式,并且不以首字母大写的形式拼写任何其他的东西
+
+
+函数化模块可以很好的构造对象并且保持对象的属性的隐私
+	var constructor = function (spec, my) {
+		var that, 其他的私有变量;
+		my = my || {};
+		
+		把共享的变量和函数添加到my中
+		
+		that = 一个新对象		//var that = {};
+		
+		添加给that的特权方法		//用于读取和设置私有变量
+		
+		return that;			//返回对象
+	}
+	
+	在添加给that的特权方法时,更安全且有利的分两步进行,先把函数定义为私有方法,然后再把它们分配给that
+		var mammal = function (spec) {
+			var that = {};
+			
+			that.get_name = function () {
+				return spec.name;
+			};
+			that.says = function () {
+				return spec.saying || '';
+			};
+			
+			return that;
+		};
+		var myMammal = mammal({name: 'Herb'});
+		
+		var cat = function (spec) {
+			spec.saying = spec.saying || 'meow';
+			var that = mammal(spec);
+			that.purr = function (n) {
+				var i, s = '';
+				for (i = 0; i < n; i += 1) {
+					if (s) {
+						s += '-';
+					}
+					s += 'r';
+				}
+				return s;
+			};
+			that.get_name = function () {
+				return that.says() + '' + spec.name + '' + that.says();
+			};
+			return that;
+		};
+		var myCat = cat({name: 'Henrietta'});
+		
+JavaScript数组的length是没有上界的。如果你用大于或等于当前length的数字作为下标来存储一个元素,那么length的值
+会被增大以容纳新元素,不会发生数组越界错误
+
+length属性的值是这个数组的最大属性名加上1.它不一定等于数组里的属性的个数:
+		myArray[10000] = true;	
+		myArray.length = 10001;		//实际myArray只包含一个属性true
+		
+可以直接设置length的值。设置更大的length不会给数组分配更多的空间。而把length设小将导致所有下标大于等于新
+length的属性被删除
+
+由于JavaScript的数组其实就是对象,所以delete运算符可以用来从数组中移除元素:delete numbers[2];但删除位置会留下
+一个undefined值,想要删除并让后续元素向前移动就使用数组的splice方法
+
+当属性名是小而连续的整数时,应该使用数组。否则,使用对象。
+
+因为使用typeof操作符判断数组和对象都会得到Object因此需要自己创建方法来判断
+		var is_array = function (value) {
+			return Object.prototype.toString.apply(value) === '[Object Array]';
+		}
+		
+可以通过给Array.prototype扩充函数,使得每个数组都可以继承这个方法,也可以给某个单独的数组添加方法:data.total =function(){}
+
+JavaScript的数组通常不会预置值,也就是,如果用[]得到一个新数组,它将是空的。如果访问一个不存在的元素,得到的值
+则是undefined。因此每次在尝试获取某个元素之前我们应该很有预见的判断元素的状态
+
+
+正则表达式
+	i标识表示不区分大小写
+	g标识表示全局模式,也就是匹配所有的匹配字符,没有g则表示只匹配第一个出现的字符
+	m标识表示多行
+	
+	^ 字符表示要从字符串的开头匹配
+	. 字符表示会匹配除结束符以外的所有字符
+	$ 字符表示这个字符串的结尾
+	(?: ...)表示这是一个非捕获型分组
+	后缀 ? 表示这个分组是可选的,它表示重复0次或1次
+	量词 + 表示这个字符会被匹配一次或多次
+	量词 * 表示这个字符会被匹配0次或多次
+	( ... )表示一个捕获型分组,一个捕获型分组会将匹配的文本复制到结果数组result中
+	量词{n, m}表示重复n~m次
+	[ ... ]表示一个字符类。A-Za-z这个字符类包含26个大写字母和26个小写字母
+	[ ^abc]表示匹配除了abc以外的任意字符
+	\d 表示匹配一个数字字符; \d+ 表示匹配数字字符并重复1到多次
+	\s 匹配任意不是空白符的字符
+	
+一个正则表达式分支包含一个或多个正则表达式序列。这些序列被 | (竖线)字符分隔。如果这些序列中的任何一项符合
+匹配条件,那么这个选择就被匹配。它尝试按照顺序依次匹配这些匹配项
+			"into".match(/in|int/);			//匹配了in,但不会匹配int,因为in已经被匹配了
+			
+一个正则表达式序列包含一个或多个正则表达式因子。每个因子能选择是否更随一个量词,这个量词决定着这个因子被允许
+出现的次数。如果没有指定这个量词,那么该因子只会被匹配一次
+
+一个正则表达式因子可以是一个字符、一个由圆括号包围的组、一个字符类,或者是一个转义序列。
+	\ / [ ] ( ) { } ? + * | . ^ $ -
+	
+	如果想要匹配的字符有以上的字符,那么必须要加上 \ 前缀来进行转义
+	
+	
+在目前大多情况下,建议连接字符串首选使用 + 元素运算符
+
+
+array.sort(comparefn)
+	sort方法接受一个比较函数。比较函数用作判断两个参数,如果两个参数相同则返回0,如果第1个参数应该排列在前面
+	则返回一个负数,如果第2个参数应该排列在前面,则返回一个正数
+		array.sort(function(a, b){		//数组是单纯的数字数组
+			return a - b;
+		});
+		
+array.splice(start, deleteCount, item)
+splice方法从array中移除一个或多个元素,并用新的item替换它们,返回一个包含被移除元素的数组
+
+apply方法调用function,传递一个会被绑定到this上的对象和一个可选的数组作为参数
+
+使用正则表达式的exec()方法,可以匹配regexp和字符串string,它会返回一个数组,包含匹配的子字符串,下标为0的元素
+将包含正则表达式regexp匹配的子字符串。下标为1、2、3...则分别是捕获组1、2、3...匹配的子字符串
+
+如果regexp带有一个g标识(全局标识),每一次匹配不会从字符串的起始位置开始而是从regexp.lastIndex(初始值为0)位置
+开始。如果匹配成功,那么regexp.lastIndex将被设置为该匹配后第一个字符的位置。不成功的匹配会重置regexp.lastIndex为0
+
+string.replace(searchValue, replaceValue)如果searchValue是一个字符串,那么searchValue只会在第1次出现的地方被替换
+如果searchValue是一个正则表达式并且带有g标识,它会替换所有的匹配。如果没有g标识,它会仅替换第1个匹配
+
+
+当string.replace()方法的第二个参数不是字符串而是函数时,则每一个匹配都要调用该函数,它返回的字符串
+将作为替换文本使用,该函数的第一个参数是匹配模式的字符串。接下来的参数是与模式中的子表达式匹配的字符串
+
+对代码块内容和对象字面量缩进4个空格。在if和(之间放置一个空格,在每个逗号和句号后放置一个空格
+在每行最多放一个语句,如果一个语句一行放不下,则在一个冒号或二元运算符后拆开它
+
+在诸如if和while这样结构化的语句里,始终使用代码块,把 { 放在一行的结尾而不是一行的开头
+
+在JavaScript中最好在每个函数的开头部分声明所有变量
+
+当保留字被作为对象字面量的键值时,它们必须被引号括起来。它们不能被用在点表示法中,所以有时必须使用括号表示法
+		object = {'case': value};	object[case] = value;
+		
+parseInt()是一个把字符串转化为整数的函数。它在遇到非整数时会停止解析,所以parseInt("16")和parseInt("16 tons")一样
+
+因为parseInt()在字符串开头第1个字符是0时会基于八进制求值,因此parseInt("08")等会出现错误,建议总是传入第二个
+参数作为进制基数,如parseInt("08", 10)	//表示根据十进制来求取
+
+虽然因为二进制的浮点数不能正确地处理十进制的小数,因此计算会出现问题,但整数部分运算时准确的,我们可以通过指定
+精度来避免
+
+isFinite()用于判断一个值能否作为数字,会筛选掉NaN和Infinity,但会试图将运算参数转化为一个数字
+
+自定义一个isNumber函数来判断一个值是否能作为一个数字
+		var isNumber = function isNumber(value) {
+			return typeof value === 'number' && isFinite(value)
+		};
+		
+使用函数表达式来定义函数,理解函数就是数值
+
+不要使用new Boolean、new Number或new String,并且避免使用new Object和new Array。可以使用{}和[]来代替
+
+JSLint期望标签只会用在与break语句进行交互的下列语句中:switch、while、do和for
+
+JSON有6种类型的值:对象、数组、字符串、数字、布尔值和特殊值null
+
+JSON对象是一个容纳"名值"对的无序集合。名字可以是任何字符串。值可以是任何类型的JSON值,包括数组和对象
+
+JSON数组是一个值的有序序列。其值可以是任何类型的JSON值,包括数组和对象。
+

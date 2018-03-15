@@ -1,0 +1,455 @@
+instanceof操作符(引用类型)					如果变量是定义引用类型的实例，那么instanceof就会返回true,		result = variable instanceof constructor,例:if(array instanceof Array)
+typeof操作符(基本类型)						用于检测基本类型的值是否是某个类型,例:if(typeof str == string)可以分辨函数Function,但分辨数组和对象时会出现错误只显示Object,可以先使用typeOf判断出是数组或对象,然后可以使用Object.prototype.toString.call(obj)来判断obj是数组还是对象
+delete操作符						用于删除一个属性或其他类型
+
+element.defaultValue				表单元素的default属性包含了该表单元素的初始值
+$('#formName :input').defaultValue
+
+alert()								显示带有一段消息和一个确认按钮的警告框
+close()								关闭浏览器窗口
+confirm()							显示带有一段消息以及确认按钮和取消按钮的对话框。返回一个布尔值,如果点击确认返回true,点击取消返回false
+focus()								把键盘焦点给予一个窗口
+open()								打开一个新的浏览器窗口或查找一个已命名的窗口
+prompt('','')						显示可提示用户输入的对话框,第一个参数显示给用户的文本提示,第二个显示文本框的默认输入,点击确认返回文本框输入的值,点击取消返回null
+setTimeout(代码,毫秒)				在等待指定的毫秒数后调用函数或计算表达式,返回一个数值ID
+clearTimeout(setTimeout()返回的数值ID)清除超时调用
+setInterval(代码,毫秒)//不推荐使用	按照指定的时间间隔重复执行代码,直到间歇调用被取消或者页面被卸载,返回一个间歇ID
+clearInterval(返回的间歇ID)			取消间歇调用
+requestAnimationFrame(loop)			告诉浏览器您希望执行动画并请求浏览器调用指定的函数在下一次重绘之前更新动画				
+
+window.innerWidth					返回浏览器的宽度
+window.innerHeight					返回浏览器的高度
+window.open()						既可以导航到一个特定的URL,也可以打开一个新的浏览器窗口,通常只接受第一个参数,最后一个参数只有在不打开新窗口的情况下使用。
+									接受4个参数:要加载的URL、窗口目标、一个特性字符串以及一个表示新窗口是否取代浏览器历史记录中当前加载页面的布尔值。
+
+screen.availWidth					可用的屏幕宽度
+screen.availHeight					可用的屏幕高度
+
+Canvas.getContext('2D')				返回一个用于在画布上绘图的环境
+
+var canvas = document.querySelector('canvas');
+var ctx = canvas.getContext('2d');
+ctx.arc(x,y,r,start,stop)			用于画一个圆,x 和 y 是 arc 中心的坐标 — 也就是小球的中心坐标,arc 的半径r — 小球的半径,最后两个参数是开始和结束的角度，也就是圆弧对应的夹角。圆的话最后两个参数是0,2 * Math.PI() 
+
+location的所有属性:windom.location与document.location引用的会是一个对象,因为它既是windom的属性又是document的属性
+	hash		'#contents'					返回URL中的hash,如果不包含散列则返回空字符串
+	host		'www.wrox.com:80'			返回服务器名称和端口号(如果有)
+	hostName	'www.wrox.com'				返回不带端口号的服务器名称
+	href		'http://www.wrox.com'		返回当前加载页面的完整URL,location的toString()方法也返回这个值
+	pathname	'/WileyCDA/'				返回URL中的目录和(或)文件名
+	port		'8080'						返回URL中指定的端口号,如果URL中不包含端口号,则返回空字符串
+	protocol	'http:'						返回页面使用的协议。通常是http:或https:
+	search		'?q=javascript'				返回URL的查询字符串,这个字符串以问号开头
+
+修改location的任何属性都可以达到改变当前加载的页面,并在浏览器的历史记录中生成一条记录	
+
+navigator.plugins可以用来检测非IE浏览器是否安装了特定的插件
+navigator.plugins数组的每一项都有的属性:		
+	name:		插件的名字						
+	description:插件的描述								
+	length:		插件所处理的MIME类型数量
+
+history.go()						可以传递数字参数来指定向后还是向前跳转,负值向后跳转.传递字符串参数就跳转到历史记录中最近的页面,记录中不存在就什么也不做
+history.back()						后退一页
+history.forward()					前进一页
+	
+location.href = 'URL';(最常用)		立即打开新URL并在浏览器的历史记录中生成一条记录
+location.assign('URL')				立即打开新URL并在浏览器的历史记录中生成一条记录
+location.replace('URL')				接受一个参数导航到一个URL,但不会生成一个新的历史记录,因此无法返回到原页面
+location.reload()					重新加载当前的页面,如果没有参数,并且页面没有变化,则从缓存中加载页面。
+location.reload(true)				参数为true,则强制从服务器重新加载页面
+
+因为所有节点类型都继承自Node类型,因此所有节点类型都共享着相同的基本属性和方法
+Node.nodeName						对于元素节点,保存元素的标签名	
+Node.nodeValue						对于元素节点,值始终为null
+Node.childNodes						其中保存着一个NodeList对象,用于保存一组有序的子节点,可以通过位置来访问这些子节点,如:someNode.childNodes[0]
+Node.childNodes.length				某个节点的子节点的个数
+Node.parentNode						返回元素的父节点
+Node.firstChild						返回元素的第一个子节点
+Node.lastChild						返回元素的最后一个子节点
+Node.previousSibling				指向元素的前一个同胞节点
+Node.nextSibling					指向元素的下一个同胞节点
+Node.hasChildNodes()				方法在节点包含一或多个子节点的情况下返回true	
+Node.appendChild()					为元素添加一个新的子元素,并返回新增的节点。如果传入的节点本来就是列表的一部分,则将节点从原来的位置移到新位置。
+Node.insertBefore()					在现有的子元素之前插入一个新的子元素,接受两个参数:要插入的节点和作为参照的节点
+Node.replaceChild()					将被替换的节点返回并从文档树中删除,由要插入的节点占据其位置。方法接受两个参数:要插入的节点和要替换的节点
+Node.removeChild(' ')				删除一个子节点,被移除的节点将成为方法的返回值
+Node.cloneNode()					用于创建调用这个方法的节点的完全相同的副本并返回.接受一个布尔值参数,表示是否执行深复制。深复制复制节点以及整个子节点树,浅复制只复制自身。不会复制节点上的JavaScript属性,例如事件处理程序等。
+Node.normalize()					处理文档树中的文本节点,当在某个节点上调用这个方法,就查找该节点的后代,如果找到空节点就删除它,如果找到相邻的文本节点,则将它们合并成一个文本节点
+Node.isSomeNode()	(DOM3)			接受一个节点参数在传入节点与引用的节点相同时返回true,相同是指引用的是一个对象
+Node.isEqualNode()	(DOM3)			接受一个节点参数在传入节点与引用的节点相等时返回true,相等是指节点类型相同,具有相等的属性,attributes和childNodes相同
+
+
+document.documentElement			该属性始终指向HTML页面中的<html>元素
+document.body						该属性直接指向<body>元素
+document.head		(H5新增)		该属性引用head元素
+document.title						该属性包含<title>元素中的文本,可以取得当前页面的标题,也可以修改	
+document.url						属性包含页面完整懂得URL,不能更改
+document.domain						domain属性只包含当前页面的域名,只有domain属性可以修改,并且必须是URL中包含的域
+document.referrer					保存着链接到当前页面的那个页面的URL,在没有来源页面的情况下,可以会包含空字符串,不可更改
+document.getElementById()			返回对拥有指定 id 的第一个对象的引用,id严格区分大小写
+document.getElementsByTagName()		接受一个参数,即要取得元素的标签名,而返回的是包含零或多个元素的NodeList,可以通过[index]访问指定位置的元素,也可以通过['somename']名称来访问某一项
+document.getElementsByClassName()(H5新增)	返回文档中所有指定类名的元素集合，作为 NodeList,对象传入多个类名时类名的先后顺序不重要
+document.getElementsByName()		返回带有指定名称的对象集合
+document.createElement()			创建元素节点,只接受一个参数,即要创建的元素的标签名。创建后加入文档中才可以使用。
+document.createTextNode()			创建文本节点,这个方法接受一个参数:要插入节点中的文本
+document.createAttribute()			创建一个新属性节点
+document.createDocumentFragment()	创建一个文本片段,不能直接添加到文档中,可以作为一个'仓库'来使用,即在里面保存将来要添加到文档的节点
+document.createComment()			创建注释节点,很少使用
+document.addEventListener()			向文档添加句柄
+document.querySelector()			接受一个CSS选择符,返回与该元素匹配的第一个元素,如果没有找到,返回null
+document.querySelectorAll()			返回匹配指定 CSS 选择器元素的所有子元素节点列表,NodeList集合。可以使用[]来访问里面的元素
+document.write()					向文档写 HTML 表达式 或 JavaScript 代码
+document.writeln()					向文档写 HTML 表达式 或 JavaScript 代码并且换行
+document.open()						用于打开网页的输出流
+document.close()					用于关闭网页的输出流
+document.activeElement	(H5新增)	这个属性始终会引用DOM中当前获得了焦点的元素
+document.hasFocus()		(H5新增)	这个方法用于确定文档是否获得了焦点
+document.readyState		(H5新增)	显示文档加载的状态,有两个可能的值:loading,正在加载文档;complete,已经加载完文档
+document.compatMode		(H5新增)	检测页面的兼容模式,标准模式下值等于'CSS1Compat',混杂模式下,值等于'BackCompat'
+document.importNode()	(DOM2)		这个方法的用途是从一个文档中取得一个节点,然后将其导入到另一个文档,接受两个参数:要复制的节点和一个表示是否复制子节点的布尔值。返回原来节点的副本。
+document.defaultView	(DOM2)		指向拥有给定文档的窗口(或框架)
+document.parentWindow	(IE)(DOM2)	指向拥有给定文档的窗口(或框架)
+document.styleSheets	(DOM2)		返回应用于文档中的样式表的数量,返回一个样式表集合,形似NodeList,可以[]访问
+document.createRange()	(DOM2)		新创建一个范围,接下来可以使用范围在后台选择文档的特定部分,还可以针对范围的内容执行多种操作
+
+
+iframe.contentDocument	(DOM2)		该属性只包含一个指针,指向表示框架内容的文档对象
+iframe.contentWindom	(IE)(DOM2)	该属性只包含一个指针,指向表示框架内容的文档对象
+
+element.nodeName					访问元素的标签名,在于标签名比较时最好进行大小写转化
+element.tagName						访问元素的标签名,在于标签名比较时最好进行大小写转化
+element.id							设置或者返回元素的 id属性
+element.title						设置或者返回元素的 title属性,鼠标移上时显现的提示信息
+element.lang						设置或者返回元素的 lang属性,元素内容的语言代码,很少用
+element.dir							设置或者返回元素的 dir,语言的方向,值为'ltr'(从左到右),'rtl'(从右到左)
+element.className					设置或者返回元素的 className属性,元素指定的CSS类
+element.childNodes					元素的childNodes包含了它所有的子节点		
+nodelist.length						返回节点列表的节点数目
+element.style						设置或返回元素的样式.方法返回一个对象,对象中包含元素的样式属性
+element.innerText					设置或返回一个节点和它的文本内容
+element.textContent					设置或返回一个节点和它的文本内容
+element.attributes					返回一个元素的属性数组,可以直接attributes[特性名]来访问某个特性
+element.firstChild					返回元素的第一个子节点
+element.lastChild					返回元素的最后一个子节点
+element.innerHTML					替换或者返回元素的所有子节点对应的HTML标记,为inneHTML设置的包含HTML的字符串值与解析后innerHTML的值大不相同。
+element.outerHTML					返回调用它的元素及所有子节点的HTML标签,也可以指定HTML字符串创建新的DOM树,然后用这个DOM树完全替换调用元素
+element.offsetHeight				元素在垂直方向上占用的空间大小,以像素计。包括元素的高度、水平滚动条的高度、上边框高度和下边框高度。
+element.offsetWidth					元素在水平方向上占用的空间大小,以像素计。包括元素的宽度、垂直滚动条的宽度、左边框宽度和下边框宽度。
+element.offsetLeft					元素的左外边框至包含元素的左内边框之间的像素距离。
+element.offsetTop					元素的上外边框至包含元素的上内边框之间的像素距离。
+element.offsetParent				保存了包含元素的引用。
+element.clientWidth					元素内容区宽度加上左右内边距宽度;
+element.clientHeight				元素内容区高度加上上下内边距高度。
+element.clientX						元素位于屏幕上的x的坐标
+element.clientY						元素位于屏幕上的y的坐标
+element.childElementCount			返回子元素(不包括文本节点和注释)的个数
+element.firstElementChild			指向第一个子元素;firstChild的元素版
+element.lastElementChild			指向最后一个子元素;lastChild的元素版
+element.previousElementSibling		指向前一个同辈元素;previousSibling的元素版
+element.nextElementSibling			指向后一个同辈元素;nextSibling的元素版
+element.getAttribute()				返回指定元素的属性值,一般通过属性来获取特性的值而不通过该方法。
+element.setAttribute()				设置或者改变指定属性并指定值,接受两个参数:要设置的特性名和值.推荐通过属性来设置特性而不使用该方法。
+element.removeAttribute()			从元素中删除指定的属性,不仅删除特性的值,也会完全删除特性
+element.querySelector()				返回匹配指定 CSS 选择器元素的第一个子元素
+element.querySelectorAll()			返回匹配指定 CSS 选择符元素的所有子元素集合NodeList
+element.matchesSelector()			方法接受一个参数,即CSS选择符,如果调用元素与该选择符匹配,返回true;否则返回false;
+element.getElementsByTagName()		返回指定标签名的所有子元素集合
+element.getElementsByClassName()(H5新增)	返回后代元素中所有指定类名的子元素集合，作为 NodeList 对象,传入多个类名时类名的先后顺序不重要
+element.addEventListener()	（DOM2)	向指定元素添加事件句柄,接受三个参数:要处理的事件名,作为事件处理程序的函数和一个布尔值.如果布尔值为true则表示在捕获阶段调用事件处理程序;如果是false则在时间冒泡阶段调用。
+element.removeEventListener()(DOM2)	移除由 addEventListener() 方法添加的事件句柄,接受三个参数:要处理的事件名,作为事件处理程序的函数和一个布尔值.如果布尔值为true则表示在捕获阶段调用事件处理程序;如果是false则在时间冒泡阶段调用。
+element.attachEvent()		(IE)	向指定元素添加事件句柄,接受两个参数:事件处理程序名称与事件处理程序函数
+element.detchEvent()		(IE)	从指定元素上移除指定事件句柄,接受两个参数:事件处理程序名称与事件处理程序函数
+element.focus()						设置文档或元素获取焦点
+element.getAttributeNode()			返回指定属性节点引用
+element.setAttributeNode()			设置或者改变指定属性节点,接受一个参数:特性节点的名称
+element.removeAttributeNode()		删除指定属性节点并返回移除后的节点,接受一个参数:特性节点的名称
+element.classList	(H5新增)		该属性是包含元素所有类名的一个集合,与其他DOM集合相类似
+classList.add(value)	(H5新增)	将给定的字符串值添加到列表中。如果值已经存在,就不添加了。
+classList.contains(value)(H5新增)	表示列表中是否存在给定的值,如果存在则返回true,否则返回false
+classList.remove(value)	(H5新增)	从列表中删除给定的字符串
+classList.toggle(value)	(H5新增)	如果列表中已经存在给定的值,删除它;如果列表中没有给定的值,添加它。
+element.dataset			(H5新增)	通过将自定义属性的前缀加上data-以后就可以通过dataset属性来访问自定义属性的值,比如data-myName就是.dataset.myName
+element.scrollIntoView()(H5新标)	通过滚动浏览器窗口或某个容器元素,调用元素就可以出现在视口中。
+element.setCapture()     (IE)       调用了SetCapture，之后无论鼠标的位置在哪，鼠标消息都发给指定的这个窗口，直到调用ReleaseCapture或者调用SetCapture设置另一个窗口为止
+element.releaseCapture() (IE)       取消setCapture的调用
+window.captureEvents(Event.MOUSEMOVE|Event.MOUSEUP)    与setCapture相似的作用,再次调用则取消
+
+textNode.nodeValue					返回和设置Text节点包含的文本
+textNode.data						返回和设置Text节点包含的文本
+textNode.appendData(text)			将text添加到节点的末尾
+textNode.deleteData(offset, count)	从offset指定的位置开始删除count个字符
+textNode.insertData(offset, text)	在offset指定的位置插入text
+textNode.replaceData(offset, count, text)	用text替换从offset指定的位置开始到offset+count为止的文本
+textNode.splitText(offset)			从offset指定的位置将当前文本节点分成两个文本节点
+textNode.substringData(offset, count)提取从offset指定位置开始到offset+count为止处的文本
+
+comment与text继承自同一个基类,拥有除了splitText()之外的所有方法
+
+
+多数情况下都可以通过简单地转换属性名的格式来实现转换。
+element.checked                     元素是否被选中,选中返回true,否则返回false
+style.backgroundImage				对应css的background-image
+style.backgroundColor				对应css的background-color
+style.color							对应css的color
+style.display						对应css的display
+style.fontFamily					对应css的font-family
+style.cssFloat			(除IE)		对应css的float
+style.styleFloat		(IE)		对应css的float
+style.cssText			(DOM2)		可以访问和修改style特性中的CSS代码,为元素应用多项变化最快捷的方式,因为可以一次性的应用所有变化
+style.length			(DOM2)		应用给元素的CSS元素的数量
+style.parentRule		(DOM2)		表示CSS信息的CSSRule对象
+style.getPropertyCSSValue()(DOM2)	返回给定属性的CSSValue对象
+style.getPropertyPriority()(DOM2)	如果给定的属性使用了!important设置,则返回'important',否则返回空字符串
+style.getPropertyValue()(DOM2)		返回包含给定属性的字符串值
+style.item(index)		(DOM2)		返回给定位置的CSS属性的名称,或者也可以用style[index]来直接取得,取得是css属性名,即background-color等
+style.removeProperty()	(DOM2)		从样式表中删除给定样式,移除后显示默认样式,因此可以用来设置默认样式
+style.setProperty()		(DOM2)		将给定属性设置为相应的值,并加上优先标志(!important)
+
+
+样式表操作
+var sheet = document.styleSheets[0];		获取文档中的样式表的第一个样式表
+var rules = sheet.cssRules || sheet.rules;	取得样式表中的规则列表
+var rule = rules[0];						取得规则列表中的第一条规则
+rule.selectorText							返回当前规则的选择符文本
+rule.style.cssText							返回整条规则对应的文本
+rule.cssText								返回整条规则对应的文本,包括选择符文本和花括号
+
+range.startContainer				包含范围起点的节点(即选区中第一个节点的父节点)
+range.startOffset					范围在startContainer中起点的偏移量。如果startContainer是文本节点、注释或CDATA节点,则它就是范围起点之前跳过的字符数量。否则,它就是范围中第一个子节点的索引。
+range.endContainer					包含范围终点的节点(即选区最后一个节点的父节点)
+range.endOffset						范围在endContainer中终点的偏移量
+range.commonAncestorContainer		starContainer和endContainer共同的祖先节点在文档树中最深的那个。
+range.selectNode()					该方法接受一个参数:一个DOM节点,选择整个节点包括其子节点
+range.selectNodeContents()			该方法接受一个参数:一个DOM节点,只选择节点的子节点
+range.setSatrtBefore(relNode)		将范围的起点设置在relNode之前,因此relNode也就是范围选区中的第一个子节点
+range.setSatrtAfter(relNode)		将范围的起点设置在relNode之后,因此relNode的下一个同辈节点才是范围选区中的第一个子节点
+range.setEndBefore(relNode)			将范围的终点设置在relNode之前,因此relNode的上一个同辈节点是范围选区中的最后一个子节点
+range.setEndAfter(relNode)			将范围的终点设置在relNode之后,因此relNode也就是范围选区中的最后一个子节点
+range.setStart()					接受两个参数:一个参照节点和一个偏移量。对于setStart()来说参照节点会变成startContainer,而偏移量会变成startOffset。
+range.setEnd()						接受两个参数:一个参照节点和一个偏移量。对于setEnd()来说参照节点会变成endContainer,而偏移量会变成endOffset。
+range.deleteContents()				这个方法能够从文档中删除范围所包含的内容
+range.extractContents()				方法返回范围的文档片段,利用这个返回的值,可以把范围的内容插入到文档的其他地方
+range.cloneContents()				创建范围对象的一个副本,然后在文档的其他地方插入该副本
+range.insertNode()					向范围选区的开始位置处插入一个节点
+range.surroundContents()			这个方案接受一个参数,即环绕范围内容的节点。范围必须包含整个DOM选区
+range.collapse()					这个方法接受一个参数,一个布尔值,表示折叠到范围的那一端,可以用来清空范围
+	
+
+事件类型
+
+UI事件(UI事件指的是那些不一定与用户操作有关的事件)
+	load:当页面完全加载后在window上触发，当所有框架都加载完毕时在框架集上面触发,当图像加载完毕时在<img>元素上触发,或者当嵌入的内容加载完毕时在<object>元素上触发
+	unload:当页面完全卸载后在window上面触发,当所有框架都卸载后在框架集上触发,或者当嵌入的内容卸载完毕后在<object>上触发。
+	abort:当用户停止下载过程时,如果嵌入的内容没有加载完,则在<object>元素上触发。
+	error:当发生JavaScript错误时在window上面触发,当无法加载图像时在<img>元素上触发....
+	select:当用户选择文本框中的一或多个字符时触发。
+	resize:当窗口或框架的大小变化时在window或框架上触发。
+	scroll:当用户滚动带滚动条的元素的内容时,在该元素上面触发。
+	
+焦点事件(焦点事件会在页面元素获得或失去焦点时触发)
+	blur:在元素失去焦点时触发。这个事件不会冒泡;所有浏览器都支持它。
+	focus:在元素获得焦点时触发。这个事件不会冒泡;所有浏览器都支持它。
+	focusin:在元素获得焦点时触发。这个事件与HTML事件focus等价,但它冒泡。支持这个事件的浏览器有IE5.5+,Safari5.1+,Opera 11.5和Chrome。
+	focusout:在元素获得焦点时触发。这个事件时HTML事件blur的通用版本。支持这个事件的浏览器有IE5.5+,Safari5.1+,Opera 11.5和Chrome。
+
+鼠标事件
+	click:在用户单击主鼠标按钮(一般是左边的按钮)或者按下回车键时触发。意味着onclick事件处理程序既可以通过键盘也可以通过鼠标执行。
+	dblclick:在用户双击主鼠标按钮(一般是左边的按钮)时触发。
+	mousedown:在用户按下了任意鼠标按钮时触发。不过不能通过键盘触发这个事件。
+	mouseenter:在鼠标光标从元素外部首次移动到元素范围之内时触发。这个事件不冒泡,而且在光标移动到后代元素上不会触发。IE,Firefox 9+和Opera支持这个事件。
+	mouseleave:在位于元素上方的鼠标光标移动到元素范围之外触发。这个事件不冒泡,而且在光标移动到后代元素上不会触发。IE,Firefox 9+和Opera支持这个事件。
+	mousemove:当鼠标指针在元素内部移动时重复地触发。不能通过键盘触发这个事件。
+	mouseout:在鼠标指针位于一个元素上方,然后用户将其移入另一个元素时触发。另一个元素可以是该元素的外部元素或子元素。不能通过键盘触发这个事件。
+	mouseover:在鼠标指针位于一个元素外部,然后用户将其首次移入另一个元素边界时触发。不能通过键盘触发这个事件。
+	mouseup:在用户释放鼠标按钮时触发。不能通过键盘触发这个事件。
+
+滚轮事件	
+	mousewheel:当用户通过鼠标滚轮与页面交互、在垂直方向向上滚动页面时(无论向上还是向下),就会触发mousewheel.	
+
+键盘与文本事件(在发生keydown和keyup事件时,event对象的keyCode属性中会包含一个代码,与键盘上一个特定的键对应)
+	keydown:当用户按下键盘上的任意键时触发,而且如果按住不放的话,会重复触发此事件。
+	keypress:当用户按下键盘上的字符键时触发,而且如果按着不动的话,会重复触发此事件。按下Esc键也会触发这个事件。
+	keyup:当用户释放键盘上的键时触发。
+	textInput:在文本插入文本框之前会触发textInput事件
+
+HTML5事件
+contextmenu事件(在Window中是右键单击,在Mac中是Ctrl+单击)	
+beforeunload事件(这个事件会在浏览器卸载页面之前触发,可以通过它来取消卸载并继续使用原页面)
+DOMContentLoaded事件(支持在页面下载的早期添加事件处理程序)在形成完整的DOM树后就会触发
+readystatechange事件(提供与文档或元素的加载状态有关的信息)
+pageshow和pagehide事件
+hashchange事件(在URL的参数列表发生变化时通知开发人员)
+	
+表单事件
+onblur								元素失去焦点时触发
+onchange							该事件在表单元素的内容改变时触发( <input>, <keygen>, <select>, 和 <textarea>)
+onfocus								元素获取焦点时触发
+onsubmit							表单提交时触发		
+oninput								元素获取用户输入时触发
+onreset								表单重置时触发
+onsearch							用户向搜索域输入文本时触发 ( <input="search">)
+onselect							用户选取文本时触发 ( <input> 和 <textarea>)				
+框架/对象事件
+onerror								在加载文档或图像时发生错误 ( <object>, <body>和 <frameset>)
+onload								一张页面或一幅图像完成加载
+onscroll							当文档被滚动时发生的事件
+onunload							用户退出页面。 ( <body> 和 <frameset>)
+窗口事件
+window.onresize						每次窗口调整大小时都会触发该事件 
+
+
+事件对象(DOM)
+event.bubbles						表示事件是否冒泡
+event.cancelable					表示是否可以取消事件的默认行为
+event.currentTarget					其事件处理程序当前正在处理的那个元素
+event.defaultPrevented		(DOM3)	为true表示已经调用了preventDefault()
+event.eventPhase					调用事件处理程序的阶段:1表示捕获阶段,2表示'处于目标',3表示冒泡阶段
+event.preventDefault()				通知浏览器不要执行与事件关联的默认动作
+event.stopImmediatePropagation()(DOM3)取消事件的进一步捕获或冒泡,同时阻止任何事件处理程序被调用
+event.stopPropagation()				取消事件的进一步捕获或冒泡,如果bubbles为true,则可以使用这个方法
+event.target						事件的目标
+event.type							被触发的事件的类型
+altKey                              返回当事件被触发时，"ALT" 是否被按下
+button                              返回当事件被触发时，哪个鼠标按钮被点击
+offsetX
+pageX
+layerX
+x
+clientX                             返回当事件被触发时，鼠标指针的水平坐标
+clientY                             返回当事件被触发时，鼠标指针的垂直坐标
+ctrlKey                             返回当事件被触发时，"CTRL" 键是否被按下
+metaKey                             返回当事件被触发时，"meta" 键是否被按下
+relatedTarget 						返回与事件的目标节点相关的节点
+screenX 							返回当某个事件被触发时，鼠标指针的水平坐标
+screenY 							返回当某个事件被触发时，鼠标指针的垂直坐标
+shiftKey 							返回当事件被触发时，"SHIFT" 键是否被按下
+keyCode                             对于 keypress 事件，该属性声明了被敲击的键生成的 Unicode 字符码。对于 keydown 和 keyup 事件，它指定了被敲击的键的虚拟键盘码。虚拟键盘码可能和使用的键盘的布局相关 
+
+									
+js中==判断数值是否相同不判断数据类型   推荐：===（严格等于）数值相同数据类型也必须相同才返回true
+字符串用'和"没有区别
+
+eval() 								会将作为基本字符串的ECMAScript代码作为源代码处理;被执行的代码具有与该执行环境相同的作用域链 
+
+任何不是 false, undefined, null, 0, NaN 的值，或一个空字符串（''）在作为条件语句进行测试时实际返回true
+var cheese = 'Cheddar';if (cheese)等同于if(true)
+
+Number.toString(num)				返回按照指定进制转换的字符串
+Number.toFixed(num)					四舍五入为指定小数位数的数字
+Number.toExponential(num)			输出指定位数的小数点的指数表示法的数值	//3.14e+0
+Number.toPrecision(num)	推荐		根据参数自动判断使用哪一种方法，是使用toFixed()还是toExponential()
+
+Number()							把其他类型的值转换为数值
+parseInt('','')						将其他类型的值转换为整数数值，后一个参数表示前一个参数是什么进制,遇到非数字就会停止解析,parseInt("16")和parseInt("16 tons")一样
+parseFloat()						把其他类型的值转换为浮点数值
+isFinite()							判断一个值能否作为数字,会筛选掉NaN和Infinity,但会试图将运算参数转化为一个数字
+
+Math.random()						返回 0 ~ 1 之间的随机数，包含0不包含1
+Math.round(x)						执行标准舍入，即它总是将数值四舍五入为最接近的整数
+Math.ceil()							执行向上舍入，即它总是将数值向上舍入为最接近的整数
+Math.floor()						执行向下舍入，即它总是将数值向下舍入为最接近的整数
+Math.min(x,y,z,..)					返回 x 和 y 中的最低值
+Math.max(x,y,z,...)					返回 x 和 y 中的最大值
+Math.sqrt()							返回正确舍入的一个double值的正平方根
+Math.PI								相当于圆周率，2 * Math.PI就是360度
+Math.max.apply(Math, Array)			用来获取一个数组中的最大值，调用方法Math.max()并使用apply()方法将Math作为调用的作用域，并将参数数组作为参数传入调用的方法Math.max()中
+Math.min.apply(Math, Array)			用来获取一个数组中的最小值，调用方法Math.min()并使用apply()方法将Math作为调用的作用域，并将参数数组作为参数传入调用的方法Math.min()中
+自定义方法random()					函数接受两个参数-两个数值，返回到这两个数值之间的随机数
+function random(min,max) {
+  var num = Math.floor(Math.random()*(max-min+1)) + min;//这个函数将两个数字作为参数传入，并且返回一个这两个数字之间的一个随机数
+  return num;
+}
+
+isNaN(NaN)							判断是否为非数，并放回true or false
+
+String的常用方法
+string.length						返回字符串的长度
+string.indexOf('String',pos)		在字符串中从前向后查找一个字符串，当查找到时返回匹配字符位置，否则返回-1,可选参数pos设置从string的某个指定位置开始查找
+string.lastIndexOf('String', pos)	在字符串中从后向前查找一个字符串，当查找到时返回匹配字符位置，否则返回-1,可选参数pos设置从string的某个指定位置开始查找
+string.slice( , )推荐				输出字符串中的部分字符串，参数一表示初始位置，参数2代表结束位置的后面，省略参数2则输出剩余全部，参数为负则加上字符串长度
+string.substring( , )				输出字符串中的部分字符串，参数一表示初始位置，参数2代表结束位置的后面，省略参数2则输出剩余全部，参数为负则转化为0
+string.substr( , )					输出字符串中的部分字符串，参数一表示初始位置，参数2代表返回字符长度，省略参数2则输出剩余全部，第一个参数为负则加上字符串长度，第二个参数为负则转化为0
+string.split("," , )				可以把包含在一个长长的字符串中的原始数据变成数组数据,第一个必需参数为字符串的分隔符,可以为字符串或正则表达式,第二个可选参数限定数组大小
+string.toLowerCase()				将所有字符分别转换为小写,并返回新string
+string.toLocaleLowerCase()			将所有字符分别转换为本地区小写形式,并返回新string
+string.toUpperCase()				将所有字符分别转换为大写,并返回新string
+string.toLocaleUpperCase()			将所有字符分别转换为本地区大写形式,并返回新string
+string.replace(子字符串或要替换的模式的 RegExp 对象,替换文本或生成替换文本的函数)将字符串中的一个子字符串替换为另一个子字符串，并返还新String，如果第一个参数为正则表达式，则按照正则表达式的意思来替换
+string.charAt(index)				从一个字符串中返回指定的字符，index (0~length-1),返回结果是一个字符串
+string.charCodeAt(index)			从一个字符串中返回指定的字符编码
+string.concat()						可以基于当前字符串创建一个新字符串,并且将传递的参数添加到字符串的末尾,可多个参数
+string.trim()						该方法创建一个字符串的副本，并且删除前置以及后缀的空格，因为是副本，所有对原字符串没有影响
+string.match(RegExp)				与模式相匹配，参数是正则表达式或者是RegExp对象，返回一个与RegExp的exec()返回相同的数组
+string.search(RegExp)				从头向后查找，返回与模式相匹配的字符串的索引，否则返回-1
+string.localeCompare('')			比较字符串和字符串参数在字母表上的前后，如果字符串在前则输出一个负数，如果字符串在后则输出一个正数，如果相同则返回0
+String.fromCharCode()				接收一个或多个字符编码，并将它们转化成一个字符串
+
+Object.create(object,'')			用一个对象作为原型创建一个新的对象,第二个参数为新对象定义额外属性的对象
+Object.getPrototypeOf(object)		返回参数对象的原型对象,即构造函数名.prototype
+Object.keys(object)					返回一个包含所有可枚举的属性的字符串数组，只包含自身拥有的属性
+Object.getOwnPropertyNames(object)	返回所有的实例属性，无论是否可以枚举
+Object.defineProperty( ,' ',{})		接收三个参数：属性所在对象、属性的名字和一个描述对象，描述对象的属性必须是:configurable,enumerable,writable和value,设置其中的一个或多个值，可以修改对应的特性值
+									configurable:能否删除从而更新，能否修改特性;enumerable:能否用for in循环枚举;writable:是否可以修改;value:属性的值.		
+object.prototype					允许您向对象添加属性和方法，该属性和方法可被子对象继承和使用，一般不会用来定义属性
+object.constructor					每个对象实例都具有 constructor 属性，它指向创建该实例的构造器函数
+object.hasOwnProperty('属性')		检测一个属性是存在于实例中还是存在原型对象中，如果是在实例中则返回true,否则返回false.
+
+'属性' in object					判断属性是否处于实例中或者原型对象中，即可以访问到的属性是否存在，如果处于或者存在则返回true
+
+funName.call(this,...)				基本上，这个函数允许您调用一个在这个文件里别处定义的函数。
+									第一个参数指明了在您运行这个函数时想对“this”指定的值
+
+function.length						函数的length属性表示函数希望接收的参数的个数
+function.caller						该属性保存着调用当前函数的函数的引用
+function.apply(this, arguments)或者function.apply(this, Array)在特定作用域中运行函数，第一个参数是函数调用的作用域，第二个参数是参数数组
+function.call(this, num1, num2)	在特定作用域中运行函数，第一个参数是运行函数的作用域，其余参数都直接传给函数
+function.bind()						该方法会创建一个函数的实例，其this值会被绑定到传给bind()函数的值
+
+arguments.callee					该属性是一个指针，指向拥有这个arguments对象的函数,解决递归算法中因为函数名变化而发生错误
+Array.prototype.slice.call(arguments)可以将伪数组arguments变为真正的数组													
+数组常用
+Array.length						找出数组的长度（它中有多少项）
+
+String.split("," , )				可以把包含在一个长长的字符串中的原始数据变成数组数据,第一个必须参数为分隔符，第二个可选参数限定数组大小
+
+Array.indexOf(查找的项,起点位置)从前往后查找一个数组项，当查找到时返回起始位置，否则返回-1
+Array.lastIndexOf(查找的项,起点位置)从后往前中查找一个数组项，当查找到时返回起始位置，否则返回-1
+Array.join(",")						将数组转换为字符串，参数指定了转变后字符串之间的分隔符,默认为,分隔符
+Array.toString()					将数组转换为字符串，不能指定分隔符
+Array.push("","",...)				添加一个或多个要添加到数组末尾的项目,并且会返回数组的新的长度
+Array.pop()							删除一个数组末尾的项目,并且会返回已被删除的项目
+Array.unshift("","",....)			添加一个或多个要添加到数组开头的项目,并且会返回数组的新的长度
+Array.shift()						删除一个数组开头的项目,并且会返回已被删除的项目
+Array.reverse()						调用该方法会反转数组项的顺序，返回排序后的数组
+Array.sort(compare)					重新对数组进行排序，通过调用toString()转化为字符串进行比较，并按大小排序，并返回新排序的数组	array.sort(function(a, b){	return a - b;});//数组是单纯的数字数组
+Array.concat()						可以基于当前数组中的所有项创建一个新数组,并且将传递的参数添加到数组的末尾
+Array.slice( , )					输出数组中的部分数组项，参数一表示初始位置，参数2代表结束位置的后面，省略参数2则输出剩余全部，参数为负则加上数组长度
+Array.splice(起始位置，删除项数，插入数据)	从起始位置开始删去指定位数的项数，并且插入新的数组项，返回一个包含从原始数组中被删除的项组成的数组
+Array.every(function(item,index,array){return(布尔表达式)})	对数组中的每一项运行给定函数，如果该函数对每一项都返回true，则返回true
+Array.some(function(item,index,array){return(布尔表达式)})	对数组中的每一项运行给定函数，如果该函数有一项返回true，则返回true
+Array.filter(function(item,index,array){return(布尔表达式)})对数组中的每一项运行给定函数，返回该函数会返回true的项组成的数组
+Array.map(function(item,index,array){return(表达式)})	对数组中的每一项运行给定函数，返回每次调用的结果组成的数组
+Array.forEach(function(item,index,array){操作})			对数组中的每一项运行给定函。这个方法没有返回值
+Array.reduce(function(prev, cur, index, array){return prev + cur})从数组第一项遍历到最后，并相加
+Array.reduceRight(function(prev, cur, index, array){return prev + cur})从数组最后一项遍历到最后，并相加
+
+JSON.stringify()						将JavaScript对象序列化为JSON字符串,var jsonText = JSON.stringify(book);
+JSON.parse()							把JSON字符串解析为原生JavaScrip值,var bookCopy = JSON.parse(jsonTetx);	
+
+RegExp.exec(String)	最强大(最慢)		返回包含第一个匹配项信息的数组,返回的数组包含两个属性:index和input。其中index表示匹配项在字符串中的位置,input表示应用正则表达式的字符串。数组中,第一项是与整个模式匹配的子字符串,其他项是与模式中的捕获组匹配的子字符串
+RegExp.test(String)	最简单(最快)		如果字符串和模式匹配就返回true,否则返回false
+
+Date()									未传递参数时新创建的对象自动获得当前日期和时间,参数为毫秒数
+Date.parse()							取得参数日期的毫秒数，日期格式为6/11/2004
+Date.UCT()								取得参数日期的毫秒数,得到的时间是基于GMT时间的，并且其中的月份以0开始，即一月份为0，其他月份以此类推,日期格式为(2005, 4, 5, 55, 55)
+Date(6/11/2004)或Date(2005, 4, 5, 55, 55)Date()也可以直接输入上面两个函数的参数，并通过模仿来得出几乎相同的时间，只是Date()的时间是基于本地的，而Date.UCT()的基于GMT时间
+Date.now()								取得当前时间的毫秒数
+Date.valueOf()							输出时间的毫秒数，即两个时间比较的是毫秒数的大小
+Date.toUTCString()						以特定于实现的格式完整的UTC日期，用于格式化日期，推荐使用
+set,get + Time(日期的毫秒),FullYear(年),Month(月),Date(日),day(星期几),Hours(时),Minutes(分),Seconds(秒),Milliseconds(日期中的毫秒)
+
+encodeURI()								用来对整个URI进行编码，只会用特殊的UTF-8替换所有的无效的字符，而不会对本身属于URI的特殊字符进行编码
+encodeURIComponent()					用来某一段URI进行编码，会将任何的非标准字符进行编码
+decodeURI()								只能用来对encodeURI()处理的结果进行解码
+decodeURIComponent()					可以解码任何特殊字符的编码

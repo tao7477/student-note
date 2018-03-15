@@ -1,0 +1,1407 @@
+$是著名的jQuery符号。实际上，jQuery把所有功能全部封装在一个全局变量jQuery中，而$也是一个合法的变量名，它是变量jQuery的别名：
+
+jQuery就是通过jQuery包装DOM对象后产生的对象,jQuery对象可以使用jQuery的方法但不能用DOM对象的任何方法
+
+jQuery对象转换为DOM对象
+jQuery提供了两种方法将一个jQuery对象转换成DOM对象,即[index]和get(index)
+(1)jQuery是一个类似数组的对象,可以通过[index]的方法得到相应的DOM对象
+jQuery代码如下:
+	var $cr = $("#cr");		//jQuery对象
+	var cr = $cr[0];		//DOM对象
+	alert(cr.checked);		//可以使用DOM的checked方法
+(2)另一种方法是jQuery本身提供的,通过get(index)方法得到相应的DOM对象
+	var $cr = $("#cr");		//jQuery对象
+	var cr = $cr.get(0);	//DOM对象
+	alert(cr.checked);		//检测这个checked是否被选中了
+	
+
+DOM对象转换成jQuery对象
+对于一个DOM对象只要用$()把DOM对象包装起来,就可以获得一个jQuery对象了。
+jQuery代码如下:
+	var cr = document.getElementById("cr");    //DOM对象
+	var $cr = $(cr)							   //jQuery对象
+
+
+利用选择器便捷快速的找到特定的DOM元素
+
+在jQuery中获取不存在的元素也不会导致报错,同时在jQuery中,判断一个元素是否存在应该判断取得对象的长度是否等于0
+
+核心选择
+$('selector', 'context')   //如果没有context参数则只需要根据selector在所有DOM元素中查找匹配的元素
+    //如果指定了context 参数,如一个DOM元素集或jQuery对象,那就会在这个context中查找
+
+基本选择器
+$(#id)    $(.class)    $(element)    $(*)     
+
+层次选择器
+$('ancestor descendant')后代    $('parent > child')子元素    $('prev + next')相邻元素    $('prev ~ sibling')
+
+层次选择器中后代选择和子元素选择更常用,$('prev + next')可以用next()代替,$('prev ~ sibling')可以用nextAll()替代
+    .siblings()选择对象的所有同辈元素
+sibiling
+基本过滤选择器
+:first    :last    :not(selector)    :even    :odd    :eq(index)    :gt(index)    :lt(index)
+:header    :animated    :focus
+
+内容过滤选择器
+:contains(text)    :empty    :has(selector)    :parent
+
+可见性过滤选择器
+:hidden    :visible
+
+属性过滤选择器
+[atr]    [atr=val]    [atr!=val]    [atr^=val]开头    [atr$=val]结尾    [atr*=val]包含    [atr|=val]前缀-    [atr~=val]空格隔开
+
+子元素过滤选择器
+:nth-child()    :first-child    :last-child    :only-child    
+
+表单对象过滤选择器
+:enabled    :disabled    :checked    :selected
+
+表单选择器
+:input    :text    :password    :radio    :checkbox    :submit    :image    :reset    :button
+:file    :hidden
+
+$('#form1 :input')指的是表单form1下的所有的<input>,<textarea>,<select>和<button>元素
+$('#form1 input')指的是表单form1下的<input>元素而不包含<textarea>,<select>和<button>元素
+
+$('test :hidden')选取class为'test'的元素后代中的隐藏元素        这个是先后代选择器在不可视过滤
+$('test:hidden')选取隐藏的class为'test'的元素                   这个是不可视过滤器
+
+
+在jQuery中创建节点,我们只需要将我们想要呈现的html代码放在$()中即可
+    如:    var $li = $(<li></li>)
+	
+然后将节点放入页面中,使用append()等方法
+
+插入节点的方法
+append()    appendTo()    prepend()    prependTo()    after()    insertAfter()    before()    insertBefore()
+
+删除节点的方法
+remove()返回被删除对象    detach()    empty()   //remove()删除所有后代和事件    //detach()删除节点保留事件    //empty清空节点
+
+复制节点
+clone()    clone(true)表示复制节点也可以被复制
+
+替换节点
+replaceWith()    replaceAll()
+
+包裹节点
+wrap() //每个匹配单独包裹   wrapAll()  //所有匹配一次包裹    wrapInner()  //包裹匹配的子节点
+
+属性操作
+attr()    //获取和设置元素属性    removeAttr()    //删除元素属性
+
+prop()    //获取和设置元素的checked,selected,disabled属性    removeProp()    //删除属性(checked,selected,disabled)
+
+回退操作
+end()    //回到'children', 'filter', 'find', 'map', 'next', 'nextAll', 'not', 'parent', 
+           'parents', 'prev', 'prevAll', 'siblings' and 'slice'等破坏性操作的上一步
+
+获取样式
+var p_class = $('p').attr('class');
+设置样式
+$('p').attr('class','high');
+追加样式
+$('p').addClass('anthor')		//保留原有class样式并追加一个新class样式    class='class1 class2'
+
+(1)如果给一个元素添加了多个class值,那么就相当于合并了它们的样式
+(2)如果有不同的class设定了同一样式属性,则后者覆盖前者
+
+移除样式
+$('p').removeClass('high')
+
+切换样式toggleClass()		//如果类名存在则删除它,如果类名不存在则添加它
+$('p').toggleClass('anthor');
+      var $p = $('p');
+	  $p.click(function(){
+	      $p.toggleClass('anthor');			//类似这样可以控制样式上的切换
+	  });
+
+判断是否含有某个样式
+$('p').hasClass('anthor');		//判断<p>样式中是否应用'anthor'样式,是则返回true,否则返回false
+
+
+设置和获取HTML、文本和值
+
+读取和获得某个元素的html内容(类似于JavaScript中的innerHTML)
+var $p_html = $('p').html();
+    $('p').html('<p>你不喜欢的水果是什么?</p>');
+	
+读取和获得某个元素的文本内容(类似JavaScript中的innerText)
+var $p_text = $('p').text();
+    $('p').text('你不喜欢的水果是?');
+	
+用来设置和获得表单元素的value值
+var txt_value = $('#password').val();
+    $('#password').val('请输入密码');
+	
+val()还可以用来使某select下拉列表框、checkbox(多选框)和radio(单选框)相应的选项被选中
+<select id="single">
+    <option>选择1号</option>
+	<option>选择2号</option>
+	<option>选择3号</option>
+</select>
+
+jQuery代码:
+	$('#single').val('选择2号');
+	
+	
+遍历节点
+1.children()方法    //该方法用于取得匹配元素的子元素集合
+	$('.parent').children();	//返回类名为parent的元素的所有后代
+    $('.parents').children('p.first')     //返回类名为parent的元素的后代中的类名为first的p元素
+	
+2.next()方法    //该方法用于取得匹配元素后面紧邻的同辈元素		nextAll()取得后面的所有同辈元素
+    $('p.aa').next();		//返回类名为aa的p元素后的第一个同辈元素
+	$('ul li').next('[title=橘子]');
+	
+3.prev()方法	//该方法用于取得匹配元素前面紧邻的同辈元素		prevAll()取得前面的所有同辈元素
+    $('ul').prev();			//取得紧邻<ul>元素前的同辈元素
+	$('ul').prev('.selected');		//取得紧邻<ul>元素前类名为selected的同辈元素
+	
+4.siblings()    //该方法用于取得匹配元素前后所有的同辈元素
+    $('ul li').siblings();	//取得ul的后代元素li的所有同辈元素
+	$('ul li').siblings('a');	//取得ul的后代元素li的所有的同辈的a元素
+	
+5.closest()    //该方法用于取得最近的匹配元素,如果匹配就返回元素本身,否则就向上直到找到元素
+    $('.item-1').closest('ul');
+	
+6.is()		//根据匹配结果返回true或false
+    $('ul li').is('[title=橘子]');
+
+7.has()    //根据方法被传入的jQuery对象匹配表达式检查元素集合的后代元素,含有匹配后代的对象将得以保留
+    $('ul').has('[title]');    //选取后代元素含有title属性的ul元素
+	$('li').has('ul').css('background-color', 'red');    //给含有ul的li加上背景色
+
+8.filter()    //筛选出与指定表达式匹配的元素集合    可传入多个表达式,用逗号隔开
+    $("p").filter(".selected, :first");    //选取第一个带有selected类名的元素p
+
+9.find()      //搜索所有与指定表达式匹配的后代元素
+    $("p").find("span");    //筛选出p元素后代的span元素
+	
+10.each(callback)//以每一个匹配的元素作为上下文来执行一个函数,并且给函数传入集合中的位置值index
+	
+has()根据表达式检查元素的后代来筛选当前元素
+filter()根据表达式检查当前元素并筛选当前元素
+find()根据表达式从当前元素向下查找后代元素并筛选出后代元素
+
+
+CSS-DOM操作
+
+无论是使用外部css样式还是内联样式,css()方法都可以获取到属性style里的属性的值
+
+css()    //可以用来取得css中属性的值或者设置属性和值
+    $('p').css('color');    //获取p元素的样式颜色
+	$('p').css('color','red');
+	$('p').css({'font-size':'30px', 'background-color':'#888888'});
+	
+	$('p').css('opacity','0.5');    //将p元素的透明度设置为半透明
+	
+height()    //可以获取或者设置元素的计算的高度(实际高度)
+    $('p').height();    //获取p元素的高度值
+	$('p').height('100px');     //设置p元素的高度为100px
+	
+width()    //可以获取或者设置元素的计算的宽度(实际宽度)
+
+innerHeight()和innerWidth()   //获取第一个匹配元素内部区域高度和宽度(包括补白、不包括边框)。
+
+outerHeight()和outerWidth()   //获取第一个匹配元素外部高度和宽度(默认包括补白和边框)。
+
+height()	        height	    //只有height可用于window或document对象
+innerHeight()	    height + padding	
+outerHeight()	    height + padding + border	
+outerHeight(true)	height+padding+border+margin	
+
+
+offset()    //用于获取元素在当前视窗的相对偏移,返回的对象包含两个属性top,left，它只对可见元素有效
+        var offset = $('p').offset();    //获取p元素的offset()
+		var left = offset.left;          //获取左偏移
+		var top = offset.top;            //获取上偏移
+		
+position()   //获取元素相对于最近的一个position样式属性设置为relative或者absolute的祖父节点的相对偏移,只对可见元素有效
+        var position = $('p').position();    //获取p元素的position()
+		var left = position.left;          //获取左偏移
+		var top = position.top;            //获取上偏移
+		
+scrollTop()方法和scrollLeft()方法    //获取元素的滚动条距顶端的距离和距左侧的距离,对所有元素均有效
+        var $p = $('p');
+		var scrollTop = $p.scrollTop();   //获取元素的滚动条距顶端的距离
+		var scrollLeft = $p.scrollLeft();    //获取元素的滚动条距左侧的距离
+		
+		这两个方法同时接受一个参数,控制样式的滚动条滚动到指定位置
+		$('textarea').scrollTop(300);     //元素的垂直滚动条滚动到指定的位置
+		$('textarea').scrollLeft(300);    //元素的水平滚动条滚动到指定的位置
+
+		
+e.pageX和e.pageY根据事件对象可以获得鼠标相对于屏幕所在的位置
+Jquery event 事件对象，包含有 event.offsetX， event.clientX，event.pageX，event.screenX等属性
+
+
+jQuery中的事件和动画          $(document).ready(function(){})在DOM加载完成,页面完全加载之前执行
+     $(document).ready(function(){
+	     //编写代码
+	 })
+等价于$(function(){
+         //编写代码
+     })
+	 
+事件绑定bind()    //用于对匹配元素进行特定事件的绑定
+    bind(type, [data], fn);   //接受三个参数:type:含有一个或多个事件类型的字符串，由空格分隔多个事件。
+	                                        [data]:作为event.data属性值传递给事件对象的额外数据对象
+										    fn:绑定到每个匹配元素的事件上面的处理函数
+    $(function(){
+	    $('#panel h5.head').bind('click', function(){
+		    var $content = $(this).next();        //当相同的部分重复出现时,应该把它存在一个变量里
+		    if($content.is(':visible')){    //通过is()方法和:visible选择器判断元素是否可见
+			    $content.hide();
+			}else{
+			    $content.show();
+			}
+		})
+	})
+
+bind()方法也可以进行简写
+    $(function(){
+	    $('#panel h5.head').click(function(){
+		    var $content = $(this).next();        //当相同的部分重复出现时,应该把它存在一个变量里
+		    if($content.is(':visible')){
+			    $content.hide();
+			}else{
+			    $content.show();
+			}
+		})
+	})	
+
+事件委派delegate()
+    指定的元素(属于被选元素的子元素)添加一个或多个事件处理程序,并规定当这些事件发生时运行的函数	
+	$("div").delegate("button","click",function(){  //可以为后动态添加的元素绑定事件
+        $("p").slideToggle();
+     });
+	 在jquery某些版本中由于hover和blur不是标准事件,因此不能使用delegate()处理
+	 但我们可以使用mouseenter和mouseleave来代替hover和blur
+
+
+jQuery新增on()和off()用于统一jQuery中所有对文档绑定事件的操作
+    $(element).on(events,[selector],[data],handler);
+	$(element).off(events,[select],[handler]);
+    events:一个或多个用空格分隔的事件类型和可选的命名空间，如"click"或"keydown.myPlugin" 。
+    selector:一个选择器字符串用于过滤器的触发事件的选择器元素的后代。如果选择的< null或省略，当它到达选定的元素，事件总是触发。
+    data:当一个事件被触发时要传递event.data给事件处理函数。
+    fn:该事件被触发时执行的函数。 false 值也可以做一个函数的简写，返回false。
+
+	 
+合成方法(hover()和toggle()方法)
+    1.hover
+	hover(enter, leave)    //当鼠标移上时触发第一个函数,当鼠标移走时触发第二个函数
+	hover()方法是替代bind('mouseenter')和bind('mouseleave')两个事件合成了一个方法
+	
+	$(function(){
+	    $('#panel h5.head').hover(function(){
+		    $(this).next().show();
+		}, function(){
+		    $(this).next().hide();
+		});
+	});
+
+	2.toggle()
+	toggle(fn1,fn2,...fnN);    //toggle()方法用于模仿鼠标连续单击事件
+	
+	$(function(){
+	    $('#panel h5.head').toggle(function(){
+		    $(this).next().show();
+		},function(){
+		    $(this).next().hide();
+		})
+	});
+	
+	toggle()方法在jQuery中还有另一个作用:切换元素的可见状态。如果元素可见,单击切换后隐藏,如果
+	元素是隐藏的,单击切换后则为可见的
+	$(function(){
+	    $('#panel h5.head').toggle(function(){
+		    $(this).next().toggle();
+		},function(){
+		    $(this).next().toggle();
+		})
+	});
+	
+事件冒泡(事件从DOM树的目标元素一路向上触发事件)	
+
+停止事件冒泡(在jQuery中和JavaScript中一样,使用stopPropagation()方法来阻止冒泡)
+    $('span').click(function(e){    //e是事件对象
+	    var txt = $('#msg').html() + '<p>内层span元素被单击</p>';
+		$('#msg').html(txt);
+		e.stopPropagation();        //停止事件冒泡,只会触发span上的click事件
+	});
+	
+阻止默认行为(阻止元素的一些默认行为,例如跳转链接,表单提交)preventDefault()
+    $('#sub').click(function(e){
+	    var username = $('#username').val();
+		if(username === ''){
+		    $('#msg').html('<p>文本框的值不能为空.</p>');
+			e.preventDefault();        //阻止默认行为
+		}
+	})
+	
+    如果想要同时对事件对象停止冒泡和默认行为,可以在事件处理程序中返回false
+	
+事件捕获(事件捕获从最顶端往下开始触发)jQuery不支持事件捕获
+
+
+事件对象的属性
+(1)event.type        (获取到事件的类型)
+    $('a').click(function(e){
+	    alert(e.type);    //'click'
+		return false;    //阻止跳转
+	})
+	
+(2)event.preventDefault()方法    (阻止默认的事件行为)
+    
+(3)event.stopPropagation()方法    (阻止事件的冒泡)
+
+(4)event.target    (获取到触发事件的元素)jQuery已兼容
+    $('a[href='http://google.com']').click(function(e){
+	    var tg = event.target;        //获取事件对象
+		alert(tg.href);        //'http://google.com'
+		return false;
+	});
+	
+(5)event.relatedTarget    
+
+(6)event.pageX和event.pageY        (获取到光标相对于页面的x坐标和y坐标)
+    $('a').click(function(e){
+	    //获取鼠标当前相对于页面的坐标
+		alert('Current mouse position: ' + e.pageX + '. ' + event.pageY);
+		return false;    //阻止链接跳转
+	})
+	
+(7)event.which        (在鼠标单击事件中获取到鼠标的左、中、右键,在键盘事件中获取键盘的按键)	
+    $('a').mousedown(function(e){
+	    alert(e.witch)     //1 = 鼠标左键;2 = 鼠标中键;3 = 鼠标右键
+	})
+	
+    $('input').keyup(function(e){
+	    alert(e.which)     //获取按下的按键
+	})
+	
+(8)event.metaKey     (为键盘事件获取ctrl按键)
+
+
+移除事件    (unbind()方法用于事件的解绑,接受两个参数:事件类型和需要移除的函数)
+    $('#btn').unbind('click');    //移除id为'btn'的元素上的所有click事件
+	$('#btn').unbind();        //移除id为'btn'的元素上的所有的绑定事件
+	$('#btn').unbind('click', myFun1)    //移除id为'btn'的元素上的click的绑定函数myFun1
+	
+(1)如果没有参数,则删除所有绑定的事件
+(2)如果提供了事件类型作为参数,则只删除该类型的绑定事件
+(3)如果把在绑定时传递的处理函数作为第2个参数,则只有这个特点的事件处理函数会被删除
+
+one()        (为每一个匹配元素的特定事件（像click）绑定一个一次性的事件处理函数)
+    与bind()方法相似,但当处理函数触发一次后就会立即被删除,在每个对象上,事件处理函数只会执行一次)
+
+one(type, [data], fn);
+    $(function(){
+	    $('#btn').one('click', function(){                //绑定后只有第一次单击按钮时处理函数
+		    $('#test').append('<p>我的绑定函数1</p>');
+		}).one('click', function(){
+		    $('#test').append('<p>我的绑定函数2</p>');
+		}).one('click', function(){
+		    $('#test').append('<p>我的绑定函数3</p>');
+		});
+	});
+	
+模拟点击        (有时候需要模拟用户操作,来达到单击的效果)
+1.常用模拟
+    在jQuery中,可以使用trigger()模拟事件
+    
+	$('#btn').trigger('click');    //在id为'btn'上的元素上触发click事件
+简化:	$('#btn').click();        //模拟点击
+	
+2.触发自定义事件
+    trigger()方法不仅能触发浏览器支持的具有相同名称的事件,也可以触发自定义名称的事件
+	
+	$('#btn').bind('myClick', function(){    //绑定自定义事件'myClick'
+	    $('#test').append('<p>我的自定义事件.</p>')    
+	});
+	$('btn').trigger('myClick');    触发自定义事件'myClick'
+	
+3.传递数据    (trigger()方法的第2个参数是要传递给事件处理函数的附加数据,以数组形式传递)
+               通常可以通过传递一个参数给回调函数来区别这次事件是代码触发还是用户触发
+	$('#btn').bind('myClick', function(e, message1, message2){
+	    $('#test').append('<p>'+message1+message2+'</p>');
+	});		   
+    $('#btn').trigger('myClick', ['我的自定义', '事件'])；
+	
+4.执行默认操作    trigger()方法触发事件后,会执行浏览器默认操作
+    $('input').trigger('focus');     //不仅会触发focus绑定的事件,也会是input元素获得焦点
+	
+如果只想要触发input元素绑定的事件,而不想执行浏览器默认操作,可以使用jQuery的triggerHandler()方法
+    triggerHandler()方法会触发事件处理函数并阻止浏览器默认行为
+    $('input').triggerHandler('focus');
+	
+bind()方法的其他用法
+    
+	1.bind()可以为元素一次绑定多个事件类型
+例:    $(function(){
+           $('div').bind('mouseover mouseout', function(){
+		       $(this).toggleClass('over');
+		   });
+     });
+    为mouseover和mouseout两个事件都绑定了toggleClass()的事件处理函数
+	当光标划入,该元素的class切换为over(添加over类),划出时恢复为之前的值
+	
+    2.添加事件命名空间,便于管理
+	可以通过命名空间将多个事件类型规范起来
+	    $(function(){
+		    $('div').bind('click.plugin', function(){        //.plugin就是命名空间
+			    $('body').append('<p>click事件</p>');   //这样就可以一次删除命名空间中的多个事件
+			});
+			$('div').bind('mouseover.plugin', function(){
+			    $('body').append('<p>mouseover事件</p>');
+			});
+			$('div').bind('dbclick', function(){
+			    $('body').append('<p>dbclick事件</p>');
+			});
+			$('button').click(function(){
+			    $('div').unbind('.plugin');     //删除了.plugin命名空间中的click和mouseover事件
+			})
+		})
+	简化了一次删除多个事件的操作
+
+    3.相同事件名称,不同命名空间执行方法
+    可以为元素绑定相同事件类型,然后根据命名空间的不同按照需要调用
+	     $(function(){
+		     $('div').bind('click', function(){
+			    $('body').append('<p>click事件</p>');
+			 });
+			 $('div').bind('click.plugin', function(){
+			    $('body').append('<p>click.plugin事件</p>') 
+			 });
+			 $('button').click(function(){
+			     $('div').trigger('click!');    //!表示匹配所有不再命名空间中的click方法
+			 });                                 //如果不加!则表示匹配所有的click方法
+		 });
+		 
+	
+jQuery中的动画
+    1.show()方法和hide()方法
+	
+hide()通过将元素的display样式改为none来让元素隐藏
+     $('element').hide();
+	 相当于:$('element').css('display','none');    //通过css()方法隐藏元素
+	 
+show()将隐藏的元素的display样式修改为隐藏前的样式    (调用hide()隐藏前会记住display的样式)
+     $('show').show();
+	 
+	使用toggle在隐藏和显示之间切换
+    $(function(){
+	    $('#panel h5.head').toggle(function(){
+		    $(this).next().hide();
+		},function(){
+		    $(this).next().show();
+		})
+	});
+	
+    2.show()和hide()方法让元素动起来(显示和隐藏)
+	show()方法和hide()方法在不传入参数的时候会立即执行隐藏或显示操作,可以传入速度参数设置速度
+	    $('element').show('slow');    //元素会在600毫秒内显示
+		$('element').hide('normal');  //元素会在400毫秒内隐藏
+		$('element').show('fast');    //元素会在200毫秒内显示
+		$('element').show(1000);      //元素会在1000毫秒内显示
+	
+	show()和hide()方法会同时增大或减少元素的高度、宽度和不透明度
+	
+	3.fadeIn()方法和fadeOut()方法    //(淡入(显示)和淡出(隐藏))只改变透明度,最后将display设为none
+	fadeIn()方法和fadeOut()方法通过更改元素的不透明度来实现显示和隐藏,也就是淡入和淡出
+	    $('#panel h5.head').click(function(){
+		    if($(this).next().is(':visible')){    //判断元素是否是可见的
+			    $(this).next().fadeOut(1000);     //可见就淡出
+			}else{
+			    $(this).next().fadeIn(1000);    //不可见就淡入
+			}
+		});
+		
+	4.slideUp()和slideDown()方法    //只通过改变高度来达到隐藏和显示,最后将display设为none
+	    slideDown()将元素由上向下展开,slideUp()将元素右下向上缩短隐藏
+	    $('#panel h5.head').click(function(){
+		    var $thisNext = $(this).next();
+		    if($thisNext.is(':visible')){    //判断元素是否是可见的
+			    $thisNext.slideUp(1000);    //可见就向上缩短隐藏
+			}else{
+			    $thisNext.slideDown(1000);    //不可见就向下展开
+			}
+		});
+	
+自定义动画方法animate()     只有数字值的属性才可以建立动画,因此border,background等不能使用动画
+    animate(params, speed, callback);
+	参数:
+	1.params:一个包含样式属性及值的映射,比如{property1:"value1", property:"value2",...}只有数字值可建立动画
+	2.speed:速度参数,可选
+	3.callback:在动画完成时执行的函数,可选
+	
+    1.自定义简单动画
+	要让一个元素动起来,需要调整它的Left,right,bottom,top等属性,因此需要我们设置position属性
+	    $(function(){
+		    $('#panel').click(function(){
+			    $(this).animate({left:"500px"}, 3000);    //元素向右移动500px
+			});
+		});
+	
+	2.累加、累减动画
+	在样式的参数的前面加上'+='或'-='符号即表示在当前位置累加或累减
+	    $(function(){
+		    $('#panel').click(function(){
+			    $(this).animate({left:"+=500px"}, 300);    //在当前位置累加500px
+			});
+		});
+		
+	3.多重动画
+(1)同时执行多个动画
+    $(function(){
+	    $('#myImg').click(function(){
+		    $(this).animate({left: '500px', height: '200px'}, 3000);
+		});
+	});
+
+(2)按照顺序执行多个动画
+    $(this).animate({left: '500px'}, 3000);
+    $(this).animate({height: '200px'}, 3000);
+	当然也可以使用链式结构来写
+	$(this).animate({left: '500px'}, 3000)
+	       .animate({height: '200px'}, 3000);
+
+	4.综合动画(将多种的不同时间的操作综合起来)
+	$(function(){
+	    $('#panel').css('opacity', '0.5'); //设置不透明度
+		$('#panel').click(function(){
+		    $(this).animate({left: '400px', height: '200px', opacity: '1'}, 3000)
+			       .animate({top: '200px', width: '200px'}, 3000)
+				   .fadeOut('slow');
+		});
+	});
+	
+动画回调函数
+callback回调函数适用于jQuery所有的动画效果方法,一般跟在速度的后面	
+      在jQuery的动画中,改变样式使用css()方法,因为css()方法不会加入动画队列中而是立即执行
+	  因此必须要使用回调函数来改变样式
+	$('#panel').click(function(){
+	    $(this).animate({left: '200px', height: '200px',opacity: '0.5'}, 3000)
+		       .animate({top: '200px', width: '200px'}, 3000, function(){
+			       $(this).css('border', '5px solid blue');
+			   });
+	});
+	
+停止动画和判断是否处于动画状态
+    1.停止元素的动画
+	如果需要动画在某处停止动画,需要使用stop()方法
+	stop([clearQueue],[gotoEnd])
+	clearQueue:表示是否要清空未执行的动画队列
+	gotoEnd:代表是否直接将正在执行的动画跳转到末状态
+	
+如果直接调用stop()方法,则会立即停止当前正在进行的动画,如果接下来还有其他动画则以这个状态直接开始
+    可以用来避免一个动画还没有完成就触发另一个动画导致的动作和动画不符的情况
+	
+    $('#panel').hover(function(){
+	    $(this).stop()
+		       .animate({height: '150px', width: '300px'}, 200);
+	}, function(){
+	    $(this).stop()
+		       .animate({height: '22px', width: '60px'}, 300);
+	});
+当遇到组合动画时,$(this).stop().animate(...).animate(...),当在执行第一个动画时,调用了stop()
+    方法,但第二个动画仍然会继续进行,因此必须要把stop()第一个参数设为true清空队列
+	$('#panel').hover(function(){
+	    $(this).stop(true)
+		       .animate({height: '150px', width: '300px'}, 200);
+	}, function(){
+	    $(this).stop(true)
+		       .animate({height: '22px', width: '60px'}, 300);
+	});
+	stop(true,true)可以停止当前动画到达当前动画的最终状态并清空队列
+	stop(false,true)可以停止当前动画并到达当前动画的末状态
+	
+jQuery只能设置正在执行的动画的最终形态	
+
+    2.判断动画是否处于动画状态    //使用is(':animated')判断是否处于动画
+	在使用animate时要避免动画的累积而导致的动作和动画的不一致,不要往已经在运行的动画上添加动画
+	因此要对元素进行是否处于动画状态的判断
+	    if(!$(element).is(':animated')){     //判断元素是否处于动画状态
+		    //如果当前没有进行动画,则添加新动画
+		}
+		$(element).is(':animated')判断元素是否处于动画如果是返回true,否则返回false
+		
+    3.延迟动画
+	在动画的执行中,如果想要对动画进行延迟处理,那么可以使用delay()方法
+	    delay()方法可以设置一个延时来推迟执行队列中之后的项目
+    delay(1000)    //延迟1000毫秒加入到动画队列中 
+    
+	4.其他动画方法(所有的jQuery动画方法都有回调函数callback参数)
+	toggle(speed,[callback])  在可见和不可见之间切换状态
+	slideToggle(speed,[easing],[callback])通过高度变化来切换样式可见性,可见和不可见之间切换
+	fadeTo(speed,opacity,[callback]) 把元素的不透明度以渐进的方式调整到指定的值
+	fadeToggle(speed,[easing],[callback]) 通过不透明度变化来切换匹配元素的可见性
+	
+	toggle()         //show()      hide() 
+	slideToggle()    //slideDown() slideUp()
+    fadeTo(1000,0.5) //animate({opacity: '0.5'},1000)	
+    fadeToggle()     //fadeIn()	   fadeOut()
+	
+	
+动画方法概括
+    hide()和show()           //同时修改多个样式属性即高度、宽度和不透明度
+	fadeIn()和fadeOut()      //只改变不透明度
+	slideUp()和slideDown()   //只改变高度
+	     fadeTo()            //只改变不透明度
+		 toggle()            //用来代替hide()方法和show()方法,所以会同时修改高度、宽度和不透明度
+	   slideToggle()         //用来代替slideUp()和slideDown()方法,所以只能改变高度
+	   fadeToggle()          //用来代替fadeIn()和fadeOut()方法,所以只能改变不透明度
+	   animate()             //属于自定义动画的方法,可以定义各种各样的样式属性,如:'left','scrollLeft'
+	   
+	$('p').animate({opacity: 'show'}, 400)    //show值是在运行动画之前记录的样式的一开始的原值
+相当于
+    $('p').fadeIn(400);	
+	
+	$('p').animate({height: 'show', width: 'show', opacity: 'show'}, 400)
+相当于
+    $('p').show()
+	
+    (1)一组元素上的动画效果
+    当在一个animate()方法中应用多个属性时,动画是同时发生的
+    当以链条的写法应用动画方法时,动画是按照顺序发生的
+
+    (2)多组元素上的动画效果
+    默认情况下,动画都是同时发生的
+    当以回调的形式应用方法时,动画是按照回调的顺序发生的
+
+
+jQuery对表单表格的操作及更多应用
+    一个表单由三个部分组成:
+    (1)表单标签:包含处理表单数据所用的服务器URL以及数据提交到服务器的方法. form部分
+    (2)表单域:包含文本框、密码框、隐藏框、多行文本框、复选框、单选框、下拉框和文本上传框等.
+    (3)表单按钮:包括提交按钮、复位按钮和一般按钮,用于将数据传送到服务器上或者取消传送
+
+focus,hover等一些事件仅使用css的伪类就可以完成一些样式变化,比如:
+     input:focus .textarea:focus{
+	     border:1px solid #f00;
+		 background:#fcc;
+	 }	
+	
+	
+通过控制多行文本框的scrollTop属性和scrollLeft属性可以调整多行文本框的滚动
+     $(.up).click(function(){
+	     if(!$('#comment').is(':animated')){
+		     $('#comment').animate({scrollTop : '-=50'}, 400);   //控制滚动条向上滚动50px
+		 };
+	 })
+	当点击向上时,多行文本框的滚动条就会滚动到指定的位置 
+    
+复选框的应用(全选,反选和全不选)
+    全选只要选中所有需要选中的复选框并将它们的checked属性设置为true即可
+	    $('#checkedAll').click(function(){
+		    $('[name=items]:checkbox').prop('checked',true);
+		});
+		
+	全不选只要将复选框的checked属性设置为false即可
+	    $('#checkedNo').click(function(){
+		    $('[name=items]:checkbox').prop('checked',false);
+		});
+		
+	反选需要使用each()来匹配的集合中的每一个元素执行函数,其中的this值指向每一个执行中的元素
+	    $('#checkRev').click(function(){
+		    $('[name=items]:checked').each(function(){
+			     $(this).prop('checked', !$(this).prop('checked'));
+			});
+		});
+	这里为了进一步简化代码可以使用原生javaScript的DOM方法来反选
+	    $('#checkedRev').click(function(){
+		    $('[name=items]:checked').each(function(){
+			    this.checked = !this.checked;       //将元素的checked属性设置为之前的属性值的反向
+			});
+		});
+	
+	点击提交按钮显示选中的选项
+	    $('#send').click(function(){
+		    var str = '你选中的是: \r\n';    //  \r是转义字符表示移动到当前行的开头
+			$('[name=items]:checked').each(function(){    //找出所有选中的复选框
+			    str += $(this).val()+'\r\n';   //  \n是转义字符表示垂直向下移动一行
+			});
+			alert(str);
+		});
+		
+	还可以通过一个复选框来对其他的复选框进行全选和全不选
+	    <input type="checkbox" id="checkAll" />全选/全不选<br/>
+		<input type="checkbox" name="items" value="足球"/>足球
+		<input type="checkbox" name="items" value="篮球"/>篮球
+		<input type="checkbox" name="items" value="羽毛球"/>羽毛球
+		<input type="checkbox" name="items" value="乒乓球"/>乒乓球
+		
+	$('#checkAll').click(function(){
+	    if(this.checked){
+		    $('[name=items]:checkbox').prop('checked',true);
+		}else{
+		    $('[name=items]:checkbox').prop('checked',false);
+		}
+	});
+	经过观察我们可以发现所有反选框的checked的值和控制全选复选框的checked的值是一致的
+	    $('checkAll').click(function(){
+		    $('[name=items]:checkbox').prop('checked',this.checked);
+		});
+		
+	实现如果有一个复选框没有选中则全选框也不能选中
+	    $('[name=items]:checkbox').click(function(){
+		    var flag=true;
+			$('[name=items]:checkbox').each(function(){
+			    if(!this.checked){
+				    flag = false;
+				}
+			});
+			$('#checkAll').prop('checked',flag);    //通过变量flag来设置checked的值
+		});
+	上列的复选框中因为涉及到了checked属性,对于这些属性值是true/false的属性我们不能使用attr()方法
+    对于checked,disable,selected等属性我们必须使用prop()方法来获取和设置避免出现问题
+	
+
+下拉框(select,option)
+    标签select可以设置multiple使得下拉框可以选择多个选项,也可以设置自己的高和宽等样式
+	还有size属性可以设置可见的选项的个数,可以把 multiple 属性与 size 属性配合使用，来定义可见选项的数目
+	
+    $('#add').click(function(){
+	    var $option = $('#select1 option:selected');  //获取选中的值
+		$option.appendTo('#select2');        //追加给对方  文档中已存在的元素appendTo会先删除在添加
+	});
+	
+    在一些添加提示信息的地方要注意不能重复添加,因此每次触发事件前先将上一次的删除
+	
+	在注册验证中用于测试输入是否是邮箱地址的正则表达式:
+	/.+@.+\.[a-zA-Z]{2,4}/.test()
+	
+	在注册或者登录验证时,在文本框失去焦点添加一个blur事件,然后为了在一边输入的时候一边出现提示
+	可以通过添加focus事件和keyup事件,并且在这两个事件中使用triggerHandler('blur')来触发失去焦点
+	事件完成验证
+	$('form :input').blur(function(){
+	    ...
+	}).keyup(function(){
+	    $(this).triggerHandler('blur');
+	}).focus(function(){
+	    $(this).triggerHandler('blur');
+	});
+	
+    提交的时候通过错误提示信息onError的长度来对输入信息是否合格验证,以此决定是否提交
+	$('#send').click(function(){
+	    $('form .required:input').trigger('blur');
+		var numError = $('.form .onError').length;    //如果存在这个类则说明有输入不合格
+		if(numError){
+		    return false;
+		}
+		alert('注册成功,密码已发送到你的邮箱,请查收.');
+	});
+	
+	客户端的验证仅用于提升用户体验,服务器仍需对用户输入的数据的合法性进行验证
+	
+	
+表格应用
+    在表格中实现隔行变色
+	    首先设置两个样式用于规定偶数行和奇数行的样式
+		然后通过jQuery代码来给奇数行和偶数行添加上不同的样式
+		    $(function(){
+			    $('tr:odd').addClass('odd');
+				$('tr:even').addClass('even');
+			})
+		因为上述代码会将thead中的tr也包含进去因此有必要去除
+            $(function(){
+			    $('tbody>tr :odd').addClass('odd');
+				$('tbody>tr :even').addClass('even');
+			})
+			
+    如果需要某一行高亮
+	    $('tr:content('王五')').addClass('selected');    //给内容为王五的一行高亮显示
+		
+end()操作可以在我们转移了操作对象后回到之前的操作对象	
+	    $('tbody>tr').click(function(){
+		    $(this).addClass('selected')
+			       .siblings().removeClass('selected')    //操作对象变为$(this).siblings()
+				   .end()                                 //通过end()使得操作对象回到$(this)
+				   .find(':radio').prop('checked', true); //等同于$(this).find(':radio').prop(...)
+				   
+	
+		})
+		
+	如果表单中的单选框一开始默认有被选中的,则需要为它添加高亮样式
+	    $('table :radio:checked').parents('tr').addClass('selected');或者
+		$('tbody>tr.has(:checked)').addClass('selected');
+		
+	
+	如果使用的不是单选框而是复选框,因为能选择多个因此不需要移除同辈样式
+	但是要对于点击已经高亮的复选框时移除样式,没有高亮则添加样式
+	    $('tbody>tr').click(function(){
+		    if ($this).hasClass('selected'){
+			    $(this)
+				       .removeClass('selected')
+					   .find(':checkbox').prop('checked',false);
+			}else {
+			    $(this)
+				       .addClass('selected')
+					   .find(':checkbox').prop('checked',true);
+			}
+		})
+	上述代码还可以使用三元运算来进行简化
+	    $('tbody>tr').click(function(){
+		    var hasSelected=$(this).hasClass('selected');    //判断是否选中
+			$(this)[hasSelected?'removeClass':'addClass']('selected')
+			       .find(':checkbox').prop('checked',!hasSelected);
+		})
+	[hasSelected?'removeClass':'addClass']这是一个三元运算,结果为['removeClass']或者['addClass']
+	因此$(this)[hasSelected?'removeClass':'addClass']('selected')等价于
+	    $(this)['removeClass']('selected')或$(this)['addClass']('selected');
+		等价于
+		$(this).removeClass('selected')或$(this).addClass('selected');
+		
+    
+	如果要实现点击某一行使得其他相应行收缩,我们可以通过将子行的class属性设置的与父行的id属性的值
+	有关联,比如将父行的id设置为row_01,然后将子行的class值设置为children_row_01
+	    则点击父行时
+		 $('tr.parent').click(function(){   //获得所谓的父行
+		    $(this)
+			      .toggleClass('selected')    //添加/删除高亮
+				  .siblings('.child_'+this.id).toggle();  //隐藏/显示所谓的子行
+		})
+		如果this.id为row_01,则等价于sibiling('.child_row_01')
+		
+    根据表格内容进行筛选    (使用:contains()对内容筛选,然后使用filter()来对选择的集合筛选)
+	    根据文本框的输入来对表格内容筛选
+		$(function(){
+		    $('#filterName').keyup(function(){
+			    $('table tbody tr').hide()        //首先让所有的行都隐藏
+				                   .filter(':contains("'+($(this).val())+'")').show();
+			}).keyup();   //DOM加载完时,绑定事件完成之后立即触发
+		});
+		之所以要在DOM加载完后是因为页面刷新时表单元素也就是文本框的值不会改变,但表格元素重置
+		因此刷新后DOM重置触发keyup事件使得表格显示和表单的值一致
+		
+	
+    
+jQuery与Ajax的应用
+    
+	在jQuery中$ajax()方法属于最底层的方法,第二层是load(),$.get()和$.post()方法
+	第三层是$.getScript()和$.getJSON()方法
+	
+load()方法    (最简单和最常用的Ajax方法,能载入远程HTML代码并插入DOM中)用于获取静态的数据文件
+    load(url, [data], [callback]);    //用于获取静态的数据文件
+	url:             String    请求HTML页面的URL地址
+	data(可选):      Object    发送至服务器的key/value数据
+	callback(可选):  Function  请求完成时回调的函数,无论请求成功或失败 
+	
+    $(function(){
+	    $('#send').click(function(){
+		    $('#resText').load('test.html');    //在id为resText的元素中加载test.html的内容
+		});
+	});
+
+1.筛选载入的HTML文档	
+	我们可以对需要加载的内容进行筛选,可以只加载test.html中的某一个部分
+	     load()方法的URL参数的语法结构是:'url selector'.url和选择器之间存在空格
+	$('#resText').load('test.html .para');   //仅加载class为para部分的内容
+	
+2.传递方式(get和post方法)
+    load()方法的传递方式根据第二个参数data来自动指定.如果没有参数传递,则采用GET方式传递;
+	反之,则会自动转换为POST方式.
+	    //无参数传递,则是GET方式
+		$('#resText').load('test.php', function(){
+		    //回调函数的内容
+		});
+		//有参数传递,则是POST方式
+		$('#resText').load('test.php',{name: 'rain', age: '22'}, function(){
+		    //...
+		});
+		
+3.回调函数
+    对于必须在加载完成后才能继续的操作,load()方法提供了回调函数(callback),该函数有三个参数
+	分别表示请求返回的内容,请求状态和XMLHttpRequest对象
+	    $('#resText').load('test.html', function(responseText,textStatus, XMLHttpRequest){
+		    //responseText   :      请求返回的内容
+			//textStatus     :      请求状态: success,error,notmodified,timeout 4种
+			//XMLHttpRequest :      XMLHttpRequest对象
+		});	
+	在load()方法中,无论请求成功还是失败,回调函数都会触发		
+	
+		
+        load()方法用于获取静态数据文件,$.get()和$.post()方法用于获取动态数据文件
+    $.get()方法和$.post()方法 ($.get()和$.post()是jQuery中的全局函数,之前的方法都是对jQuery操作的)
+    
+1.$.get()方法
+        $.get(url, [data], [callback], type)
+		url            :      String      请求的HTML页的URL地址
+		data(可选的)   :      Object      发送至服务器的key/value数据会作为QueryString附加到请求URL中
+		callback(可选) :      Function    载入成功时回调函数(返回状态成功时才调用)自动将请求结果和状态传递给该方法
+		type(可选)     :      String      服务器段返回内容的格式,包括xml,html,script,json,text和_default
+		
+	$(function(){
+	    $('#send').click(function(){
+		    $.get('get1.php', { username: $('#username').val(),   //发送id为username的元素的内容
+			                    content: $('#content').val()
+							}, function(data, textStatus){       //data:返回的内容 textStatus:请求状态
+							    $('#resText').html(data);   //将返回的内容添加到页面
+							});
+		});
+	});
+	
+    数据返回(服务器返回的数据格式可以有多种,它们都可以完成相同的任务)
+	    
+(1).HTML片段
+    返回的是HTML片段,则不需要进行处理就可以直接插入到主页面中
+	    $('#send').click(function(){
+		    $.get('get1.php', { username: $('#username').val(),   //发送id为username的元素的内容
+			                    content: $('#content').val()
+							}, function(data, textStatus){       //data:返回的内容 textStatus:请求状态
+							    $('#resText').html(data);   //将返回的内容添加到页面
+							});
+		});
+		
+(2).XML文档
+    如果服务器返回的是XML文档,我们需要对文档进行处理获取其中需要的信息然后变为HTML代码插入
+	对于XML文档我们可以使用jQuery的DOM方法来获取XML文档的内容(如:filter(),find(),attr(),find())
+	    $(function(){
+		    $('#send').click(function(){
+			    $.get('get2.php', {
+				    username : $('#username').val(),
+					content : $('#content').val()
+				}, function(data, textStatus){
+				    var username = $(data).find('comment').attr('username');
+					var content = $(data).find('comment content').text();   //取得text文本格式
+					var txtHtml = '<div class="comment"><h6>'
+					              +username+'</h6><p class="para">'
+								  +content+'</p></div>';
+					$('#resText').html(txtHtml);
+				});
+			});
+		});
+
+(3).JSON文件
+    返回的数据如果是JSON数据格式,则首先我们必须进行处理后才能插入页面
+	    $(function(){
+		    $('#send').click(function(){
+			    $.get('get3.php', {
+				    username : $('#username').val(),
+					content : $('#content').val()
+				}, function(data, textStatus){
+				    var username = data.username;
+					var content = data.content;
+					var txtHtml = '<div class="comment"><h6>'
+					              +username+'</h6><p class="para">'
+								  +content+'</p></div>';
+					$('resText').html(txtHtml);  //将返回的数据添加到页面上
+				}, 'json');     //表示期望服务器返回json格式的数据
+			});
+		});
+		
+
+2.$.post() (post方法可传输的数据更大,post传输更为安全,和get方法都可以在服务器端用$_REQUEST[]获取)	
+
+     post()的用法与get()并没有什么区别,而且都可以在服务器端用$_REQUEST[]来获取
+	    只需要将post和get更改就可以在post和get之间切换请求的方法
+	     $('#send').click(function(){
+		    $.post('post1.php', { username: $('#username').val(),   //发送id为username的元素的内容
+			                    content: $('#content').val()
+							}, function(data, textStatus){       //data:返回的内容 textStatus:请求状态
+							    $('#resText').html(data);   //将返回的内容添加到页面
+							});
+		});
+		因为当load()方法带有参数传递是,会使用POST方式发送请求.因此也可以使用load()方法来完成
+		同样的功能
+		    $(function(){
+			    $('#send').click(function(){
+				    $('#resText').load('post1.php', {
+					    username: $('#username').val(),
+						content: $('#content').val()
+					});
+				});
+			});
+		
+		
+	$.getScript()方法和$.getJSON()方法
+	
+1.$.getScript()方法    (在需要时触发某种事件后动态的加载JavaScript文件,而不必一开始就加载全部的文件)	
+    使用$.getScript()方法获取文件并可以直接加载而无需做多余的操作,取得后就会自动执行
+	    $(function(){
+		    $('#send').click(function(){
+			    $.getScript('test.js');    //加载test.js文件
+			});
+		});
+		
+	$.getScript()方法也有回调函数,js文件加载成功后就会调用函数
+	    $(function(){
+		    $.getScript('jquery.color.js', function(){    //加载jquery.color.js成功后调用
+			    $('#go').click(function(){
+				    $('.block').animate({ backgroundColor: 'pink'}, 1000)
+					           .animate({ backgroundColor: 'blue'}, 1000);
+				});
+			});
+		});
+	
+2.getJSON()方法 (用于加载JSON文件,与getScript的用法相同)
+    $(function(){
+	    $('#send').click(function(){
+		    $.getJSON('test.json');    //取得test.json的数据
+		});
+	});
+	如果像上列代码仅仅只是加载获得test.json的数据,页面上并不会出现变化,可以在getJSON的回调函数
+	中将获取的数据添加到页面中
+	
+	    取得的json数据会作为参数data传入到$.getJSON()的回调函数中,可以通过for迭代data变量来取得
+		所有的数据,也可以通过jQuery的$.each()方法来遍历json中的对象和数组
+	    $(function(){
+		    $('#send').click(function(){
+			     $.getJSON('test.json', function(data){    //返回的数据
+				      $('#resText').empty();      //清空id为'resText'的元素的内容
+                      var html = '';
+                      $.each(data, function(commentIndex, comment){    //回调函数参数:索引和内容
+					      html += '<div class="comment"><h6>'
+						          + comment['username'] + '</h6><p class="para">'
+								  + comment['content'] + '</p></div>';
+					  });
+                      $('resText').html(html);					  
+				 });
+			});
+		});
+        
+$.each()和jQuery的each()方法不同,它是全局变量,不操作jQuery对象,它接受两个参数:以一个数组或对象
+作为第1个参数,以一个回调函数作为第2个参数.
+     回调函数也拥有两个参数:第1个为对象的成员或数组的索引,第2个为对应的变量或内容
+	 
+	 $.getJSON('test.json', function(data){
+	     $.each(data, function(index, content){
+		     //....
+		 });
+	 });
+JSONP可以通过JSON来从其他的不同来源的域获取数据,通过使用JSON和script标记结合,可以从服务器直接
+返回可执行的JavaScript函数调用或者JavaScript对象	
+	
+	
+	$.ajax()方法    (jQuery最底层的Ajax实现)
+	它的结构;
+    $.ajax(options)
+该方法只接受一个参数,但这个对象里包含了$.ajax()方法所需的请求设置以及回调函数等必要休息,
+参数以key/value的形式存在,所有参数都是可选的
+    url                String               发送请求的页面(默认当前页面)    
+	type               String               请求方式(POST或GET)默认为GET
+	timeout            Number               设置请求时间
+	data           Object或String           发送到服务器的数据
+	dataType           String               预期返回数据的格式(xml,html,script,json,jsonp,text)
+	beforeSend         Function             发送请求前可用修改XMLHttpRequest对象的函数
+	complete           Function             请求完成调用的回调函数(无论成功或失败)
+	success            Function             请求成功后调用的回调函数
+	error              Function             请求失败后调用的回调函数
+	global             Boolean              默认为true.表示是否触发全局Ajax事件
+	
+$.ajax()方法是jQuery最底层的Ajax实现,因此可以用它来代替前面的所有方法
+           例如使用$.ajax()方法代替$.getScript()方法
+		   $(function(){
+		       $('#send').click(function(){
+			       $.ajax({
+				       type: 'GET',
+					   url:  'test.js',
+					   dataType: 'script'
+				   });
+			   });
+		   });
+
+序列化元素 (将DOM元素的内容数据序列化成字符串数据)
+    1.serialize()方法
+	用于将DOM的内容序列化为字符串使得我们不用一个一个的获取需要发送的内容
+	     $('#send').click(function(){
+		     $.get('get1.php', $('#form1').serialize(), function(data, textStatus){
+                $('resText').html(data);			 
+			 });
+		 });
+	    即使在表单中增加字段,脚本仍然能够使用,并且不需要做其他多余工作
+	因为serialize()方法作用于jQuery对象,因此不光只有表单能够使用它,其他选择器选取的元素也都能
+	使用它
+	    $(':checkbox,:radio').serialize();//把复选框和单选框的值序列化为字符串形式,只会将选中的值序列化
+	
+	2.serializeArray()方法
+	与serialize()类似的方法--serializeArray(),该方法不是返回字符串,而是将DOM元素序列化后,返回
+	JSON格式的数据
+	    $(function(){
+		    var fields = $(':checkbox,:radio').serializeArray();
+			$.each(fields, function(index, fields){
+			    $('#resText').append(fields.value + ' , ');
+			});
+		});
+		
+	3.param()方法  (它是serialize()方法的核心,用来对一个数组或对象按照key/value进行序列化)
+		比如将一个普通的对象序列化:
+		var obj = {a:1,b:2,c:3};
+		var k = $.param(obj);
+		alert(k);    //输出a=1&b=2&c=3
+	
+	
+jQuery中的Ajax全局事件   (可以在页面的任何地方调用)
+    比如$.ajaxStart()和$.ajaxStop()方法    (只要拥有ajax调用就会触发)
+
+如果用户点击交互时需要加载的内容比较大或者从远端获取,我们通常需要使用在两种方法,在用户点击后
+提醒用户开始加载的信息表示操作有效,完成后隐藏加载信息
+    <div id="loading">加载中</div>       //显示加载中信息的元素
+	
+	$('#loading').ajaxStart(function(){    //当发现ajax调用开始
+	    $(this).show();
+	});
+	$('#loading').ajaxStop(function(){
+	    $(this).hide();
+	})   //也可以使用链式写法
+	     //$('#loading').ajaxStart(function(){
+		     $(this).show();
+		 }).ajaxStop(function(){
+		     $(this).hide();
+		 })
+		 
+    ajax还有一些其他的Ajax全局方法
+	    ajaxCommplete(callback)        Ajax请求完成时执行的函数
+		ajaxError(callback)            Ajax请求发生错误时执行的函数,捕捉到的错误可以作为最后一个参数传递
+		ajaxSend(callback)             Ajax请求发送前执行的函数
+		ajaxSuccess(callback)          Ajax请求成功时执行的函数
+		
+
+jQuery插件的使用和写法
+    Validation插件    用于表单验证
+	自定义验证信息并美化
+<script src="../../scripts/jquery.js" type="text/javascript"></script>
+<script src="lib/jquery.validate.js" type="text/javascript"></script>
+
+em.error {
+  background:url("images/unchecked.gif") no-repeat 0px 0px;
+  padding-left: 16px;
+}
+em.success {
+  background:url("images/checked.gif") no-repeat 0px 0px;
+  padding-left: 16px;
+}
+
+
+    $(document).ready(function(){
+
+	$("#commentForm").validate({
+		rules: {
+			username: {
+				required: true,
+				minlength: 2
+			},
+			email: {
+				required: true,
+				email: true
+			},
+			url:"url",
+			comment: "required"
+		},
+		
+		messages: {
+			username: {
+				required: '请输入姓名',
+				minlength: '请至少输入两个字符'
+			},
+			email: {
+				required: '请输入电子邮件',
+				email: '请检查电子邮件的格式'
+			},
+			url: '请检查网址的格式',
+			comment: '请输入您的评论'
+		},	
+		
+		errorElement: "em", //可以用其他标签，记住把样式也对应修改
+		success: function(label) {
+			//label指向上面那个错误提示信息标签em
+			label.text(" ")				//清空错误提示消息
+				.addClass("success");	//加上自定义的success类
+		}
+
+	  });
+
+  });
+	
+	
+jQuery表单插件——From     将表单的提交方式升级为Ajax提交方式
+    <script src="lib/jquery.form.js" type="text/javascript"></script>
+	
+    $('#myForm').ajaxForm(function() {   
+			   $('#output1').html("提交成功！欢迎下次再来！").show();    
+		   });
+		   
+    $('#myForm').submit(function() { 
+               $(this).ajaxSubmit(function() {   
+			 		  $('#output1').html("提交成功！欢迎下次再来！").show();    
+		       }); 
+   			   return false; //阻止表单默认提交
+		});  
+		
+    ajaxForm()方法和ajaxSubmit()方法
+	参数options对象
+	    var options = {
+		    target : '#output1',        //把服务器的内容放入id为output1的元素中
+			beforeSubmit : showRequest,        //提交前的回调函数
+			success : showResponse,            //提交后的回调函数
+			url : url,                         //默认是form的action,如果申明，则会覆盖
+			type : type,                       //默认是form的method,如果申明，则会覆盖
+			dataType : null,                   //'xml','script',or'json'(接受服务端返回的类型)
+			clearForm : true,                  //成功提交后,清除所有表单元素的值
+			resetForm : true,                  //成功提交后,重置所有表单元素的值
+			timeout : 3000                     //限制请求的时间，当请求大于3秒后，跳出请求.
+		}
+		
+// 提交前
+			  function showRequest(formData, jqForm, options) { 
+			     // formdata是数组对象,在这里，我们使用$.param()方法把他转化为字符串.
+    			  var queryString = $.param(formData); //组装数据，插件会自动提交数据
+                  alert(queryString); //类似 ： name=1&add=2  
+                  return true; 
+				} 
+ 
+//  提交后
+			function showResponse(responseText, statusText , xhr , $form)  { 
+                   alert('状态: ' + statusText + '\n 返回的内容是: \n' + responseText); 
+             } 
+			 
+
+模拟窗口插件————SimpleModel
+    用于调用一个模拟窗口，可以用来创建很多东西
+	
+	
+Cookie插件————Cookie是网站设计者放置在客户端的小文本文件
+    jQuery提供了一个十分简单的插件来管理网站的Cookie
+	
+    写入Cookie
+	$.cookie('the_cookie', 'the_value');
+	读取Cookie
+	$.cookie('the_cookie');
+	删除Cookie
+	$.cookie('the_cookie', null);
+	其他可选参数
+	$.cookie(the_cookie,the_value, {
+	    expires: 7;     //有效期
+		path: '/';      //cookie的域名路径。默认是创建该Cookie的页面域名
+		domain: cookie的域名属性。默认是创建该Cookie的页面域名
+		secure: 如果设为true,那么此Cookie的传输会要求一个安全协议，例如:HTTPS
+	})
+	
+	设置一个Cookie    :     var COOKIE_NAME = 'username';
+	
+	
+jQuery UI插件    (交互、微件和动画效果库)
+    http://ui.jquery.com/download    下载插件
+	http://jqueryui.com/download     官网
+	
+在对于功能所必须的ui插件不太了解的时候我们可以使用通用包	
+<script type="text/javascript" src="js/jquery-ui-1.8.18.custom.js"></script>
+
+    .sortable()方法可以设置元素可以被拖动排序
+	.sortable({delay:1})    //延迟拖动事件1秒避免抢在单击事件前触发从而导致单击事件失败
+	
+	
+编写jQuery插件
+
+    jQuery.fn.extend()方法用于扩展对象方法,jQuery.extend()用于扩展全局或选择器插件
+
+
+jQuery.extend()方法除了可以用于扩展jQuery对象之外,还可以用于扩展已有的Object对象
+    var settings = { validate: false, limit: 5, name: 'foo'};
+    var options = { validate: true, name: 'bar'};
+    var newOption = jQuery.extend(settings,options);
+jQuery.extend()方法还可以用于设置插件方法的一系列默认参数
+    function foo(options){
+	    options=jQuery.extend({
+		    name:'bar',
+			length:5,
+			dataType:'xml'       //默认参数
+		},options);             //options为默认参数,传入的参数会覆盖默认,未传入参数则使用默认参数
+	}	
+	
+	
+    1.封装jQuery对象方法的插件
+	    编写设置和获取颜色的插件
+	
+	;(function($){
+	    $.fn.extend({
+		    "color":function(value){
+			    return this.css('color',value);    //return是为了可以使用链式写法而需要返回对象
+			}               //之所以返回this.css()而不是this,是因为css()本来就会返回对象
+		})
+	})(jQuery)
+	
+如果需要定义一组插件:
+    ;(function(){
+	     $.fn.extend({
+		     'color':function(value){
+			     //插件代码
+			 },
+		     'border':function(value){
+			     //插件代码
+			 },
+			 'background':function(value){
+			     //插件代码
+			 }
+		 });
+	})(jQuery);
+    
+	定义插件可以使用$.fn对象来进行扩展
+    (function($)){
+	    $.fn.yourPluginName = function(option){
+		var defaultValue = { colorStr:"green",fontSize:12};
+		var setting = $.extend(defaultValue, option);
+		this.css("color",setting.colorStr).css("fontSize",setting.fontSize+"px");        
+        return this;
+		}
+	}(jQuery)
+    也可以使用$.fn.extend方法来扩展
+    (function($)){
+	    $.fn.extend({         
+            changeStyle:function(option){             
+            var defaultSetting = { colorStr:"green",fontSize:12};
+            var setting = $.extend(defaultSetting,option);
+            this.css("color",setting.colorStr).css("fontSize",setting.fontSize+"px");        
+            return this; 
+            }
+        });
+	}(jQuery)
+根据this匹配不同元素的内容	
+$('selector', 'context')   //如果没有context参数则只需要根据selector在所有DOM元素中查找匹配的元素
+    //如果指定了context 参数,如一个DOM元素集或jQuery对象,那就会在这个context中查找	
+	如果需要在匹配的元素内查找，则$('tbody>tr', this),表示在当前表格内查找tbody的后代tr
+	这个this表示当前调用这个插件的对象,比如$('#table1').alterColor().find('th').css('color','red');
+		
+	因为选择符很可能会匹配多个元素,因此在编写插件时必须考虑使用each()方法来遍历每个元素
+	    ;(function(){
+		    $.fn.extend({
+			    'somePlugin':function(options){
+				    return this.each(function(){
+					    //在这里放置代码
+					})
+				}
+			})
+		})
+	
+自定义选择器
+    选择器的函数一共接受三个参数
+	    function(a, i, m){
+		    //...
+		}
+	a表示当前遍历到的DOM元素，i表示当前遍历到的DOM元素的索引值，m[3]表示传入函数的参数	
+	;(function(){
+	     $.extend($.expr[':'], {
+		     between : function(a, i, m){
+			     var tmp = m[3].split(',');    //将传入参数以逗号为分隔符,转为一个数组
+				 return tmp[0]-0<i&&i<tmp[1]-0;    //返回索引值在传入参数之间的元素
+			 }
+		 })
+	})(jQuery);
+	
+	在这里使用jQuery.extend()方法来对jQuery对象的一部分进行扩展,选择器仅仅是$.expr[':']对象的
+	一部分,同时也是一个Object对象,因此可以直接利用jQuery.extend()对其进行扩展
+	
+    jQuery.isNumeric(value)    //判断值是否为数字
+	
+	
+全选和全不选
+    var tog = false; 
+    $('button').click(function(){
+        $("input[type=checkbox]").attr("checked",!tog);
+        tog = !tog;
+    });
+
